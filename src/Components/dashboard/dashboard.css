@@ -1,0 +1,158 @@
+.center {
+    display: flex;
+    justify-content:center;
+    width: 80vw;
+    }
+ .center2 {
+        display: flex;
+        justify-content:center;
+        width:30vw;
+        padding-right: 5%;
+        }
+
+.center1{
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+
+}
+.dashboard {
+  margin: 0;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.center5{
+    display: flex;
+    justify-content: center;
+}
+.center3{
+    display: flex;
+    justify-content: center;
+    padding-left: 5%;
+    padding-right: 10%;
+}
+.background{
+    background-color: whitesmoke;
+}
+.title{
+    font-weight: bold;
+    font-size: larger;
+}
+.textSize{
+    font-size: 32px;
+    font-weight: bold;
+    color: green;
+}
+.backgroundNav{
+    background-color: #6d81a1;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1a3157;
+}
+.backgroundNav2{
+    background-color:#1a3157;
+    color: #6d81a1;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.link {
+  margin-right:40px;
+  margin-left:40px;
+}
+
+.textboxSearch{
+    border-radius: 25px;
+    opacity: 0.5;
+}
+
+.loader {
+  width: 10em;
+  height: 10em;
+}
+
+.weatherCol {
+  padding: 10px;
+  flex: 1;
+}
+
+.weatherRow {
+  padding: 10px;
+  display: flex;
+}
+
+.cards {
+    width: 90%;
+    max-width: 2000px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 5%;
+}
+.cardBody {
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
+    padding-left: auto;
+    text-align: center;
+}
+
+.cardColLeft {
+  padding: 2%;
+  margin: 5%;
+  margin-top: 0%;
+  height: 100%;
+}
+
+.cardCol {
+  padding: 2%;
+  margin: 5%;
+}
+.cardButton {
+    color: white;
+    background-color: #191975;
+    font-size: 1em;
+    border: 2px solid #191975;
+    margin-top: auto;
+    min-width: 10em;
+    width: 60%;
+}
+
+.card {
+    border: none;
+    height: 100%;
+}
+
+.card-weather {
+    border: none;
+    padding-bottom: 5em;
+    min-height: 400px;
+}
+
+.cardTitle {
+  font-size: 20px;
+  color: darkred;
+}
+
+.cardContent {
+  display: flex;
+}
+
+.loc_text {
+  font-size: 18px;
+}
+
+.zipSearch {
+  font-size: 24px;
+}
+
+.gauge {
+  height: 340px;
+  width: 230px;
+}
