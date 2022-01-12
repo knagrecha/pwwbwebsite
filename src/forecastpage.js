@@ -175,86 +175,121 @@ class Hourly extends React.Component {
           stateCode: data.data[0].state_code,
           aqiCode: data.data[0].aqi,
         });
+      }).then(() => {
+
+        console.log("nearly done");
+        this.loading = false;
+         this.setState({ state: this.state });
       });
 
 
   }
 
   componentDidMount() {
+    console.log(this.props.location.state)
+    if (this.props.location.state != null) {
 
-    let currentComponent = this;
-    const d = sessionStorage.getItem("zip");
-    if (d != "undefined" && d!= null) {
-      console.log("cache");
-      console.log(d);
-      currentComponent.setState({
-        postalCode: d,
-        check: null,
-        cityName: null,
-        stateCode: null,
-        aqiCode: null,
-        weatherCode: null,
-        weatherIcon: [null, null, null, null, null],
-        weatherTemp: [null, null, null, null, null],
-        weatherMinTemp: [null, null, null, null, null],
-        weatherMaxTemp: [null, null, null, null, null],
-        date: [null, null, null, null, null],
-      }, () => {
-        currentComponent.retrieveDataFromPostal()
-      });
+      let data = this.props.location.state.data;
+      this.handleRedirect(data);
+
+    } else {
+
+      let currentComponent = this;
+      const d = sessionStorage.getItem("zip");
+      if (d != "undefined" && d!= null) {
+        console.log("cache");
+        console.log(d);
+        currentComponent.setState({
+          postalCode: d,
+          check: null,
+          cityName: null,
+          stateCode: null,
+          aqiCode: null,
+          weatherCode: null,
+          weatherIcon: [null, null, null, null, null],
+          weatherTemp: [null, null, null, null, null],
+          weatherMinTemp: [null, null, null, null, null],
+          weatherMaxTemp: [null, null, null, null, null],
+          date: [null, null, null, null, null],
+        }, () => {
+          currentComponent.retrieveDataFromPostal()
+        });
 
 
-      return;
+        return;
 
-    }
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-        var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
-        fetch(url).then((response) => response.json()).then((data) => {
-            console.log(data.address);
-            currentComponent.setState({
-              postalCode: data.address.postcode,
-              check: null,
-              cityName: null,
-              stateCode: null,
-              aqiCode: null,
-              weatherCode: null,
-              weatherIcon: [null, null, null, null, null],
-              weatherTemp: [null, null, null, null, null],
-              weatherMinTemp: [null, null, null, null, null],
-              weatherMaxTemp: [null, null, null, null, null],
-              date: [null, null, null, null, null],
-            }, () => {
-              currentComponent.retrieveDataFromPostal()
-            });
-        }).then(() => {
-          sessionStorage.setItem("zip", currentComponent.state.postalCode);
+      }
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log("Latitude is :", position.coords.latitude);
+          console.log("Longitude is :", position.coords.longitude);
+          var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
+          fetch(url).then((response) => response.json()).then((data) => {
+              console.log(data.address);
+              currentComponent.setState({
+                postalCode: data.address.postcode,
+                check: null,
+                cityName: null,
+                stateCode: null,
+                aqiCode: null,
+                weatherCode: null,
+                weatherIcon: [null, null, null, null, null],
+                weatherTemp: [null, null, null, null, null],
+                weatherMinTemp: [null, null, null, null, null],
+                weatherMaxTemp: [null, null, null, null, null],
+                date: [null, null, null, null, null],
+              }, () => {
+                currentComponent.retrieveDataFromPostal()
+              });
+          }).then(() => {
+            sessionStorage.setItem("zip", currentComponent.state.postalCode);
+
+          });
 
         });
 
-      });
-
-    } else {
-      currentComponent.setState({
-        postalCode: "90006",
-        check: null,
-        cityName: null,
-        stateCode: null,
-        aqiCode: null,
-        weatherCode: null,
-        weatherIcon: [null, null, null, null, null],
-        weatherTemp: [null, null, null, null, null],
-        weatherMinTemp: [null, null, null, null, null],
-        weatherMaxTemp: [null, null, null, null, null],
-        date: [null, null, null, null, null],
-      }, () => {
-        currentComponent.retrieveDataFromPostal()
-      });
+      } else {
+        currentComponent.setState({
+          postalCode: "90006",
+          check: null,
+          cityName: null,
+          stateCode: null,
+          aqiCode: null,
+          weatherCode: null,
+          weatherIcon: [null, null, null, null, null],
+          weatherTemp: [null, null, null, null, null],
+          weatherMinTemp: [null, null, null, null, null],
+          weatherMaxTemp: [null, null, null, null, null],
+          date: [null, null, null, null, null],
+        }, () => {
+          currentComponent.retrieveDataFromPostal()
+        });
+      }
     }
 
 
+  }
+
+  handleRedirect(data) {
+    console.log(data);
+    this.setState({
+      postalCode: data
+    }, () => {
+      let parsed = parseInt(this.state.postalCode);
+
+      if (isNaN(parsed)){
+
+        this.retrieveDataFromCity(this.state.postalCode);
+      }else{
+        try {
+          this.retrieveDataFromPostal(this.state.postalCode);
+        } catch (e) {
+          alert("Not a valid zipcode");
+
+        }
+      }
+      this.setState({ postalCode: "" });
+    })
   }
 
   handleSubmit = (event) => {
@@ -315,27 +350,9 @@ class Hourly extends React.Component {
     return (
 
       <Container className="dashboard" fluid>
-        <Row style={{marginBottom: "5%"}}>
-        <Col align="center">
-              <Container fluid>
-                  <form onSubmit={this.handleSubmit}>
-                      <label className="zipSearch form-label">Search by ZIP Code</label>
-                        <input
-                          className="center2 textboxSearch"
-                          type="text"
-                          placeholder="Enter zipcode or city name here..."
-                          value={this.state.postalCode}
-                          onChange={this.handleChange}
-                          name="postalCode"
-                          id="aq-lookup"
-                          style={{padding: "1%"}}
-                        />
-                </form>
 
-              </Container>
-          </Col>
-        </Row>
         <Row className="cards">
+
 
           <Col xs={12} md={12} lg={4} xl={4} align="center">
 
@@ -344,7 +361,7 @@ class Hourly extends React.Component {
                 <Card.Title className="cardTitle">Current Air Quality</Card.Title>
                   <hr/>
                   <Container fluid>
-                    <iframe height="340" src= {urlchange} width="230" ></iframe>
+                    <iframe height="300" src= {urlchange} width="230" ></iframe>
                   </Container>
               </Card.Body>
             </Card>
@@ -352,7 +369,8 @@ class Hourly extends React.Component {
 
           </Col>
 
-          <Col xs={12} md={12} lg={8} xl={8} align="center">
+
+          <Col xs={12} md={12} lg={6} xl={6} align="center">
           <Card className="shadow card-weather">
             <Card.Body className="cardBody d-flex">
                 <Card.Title className="cardTitle">Weather Forecast</Card.Title>
@@ -422,6 +440,22 @@ class Hourly extends React.Component {
               </Card.Body>
             </Card>
             </Col>
+      </Row>
+      <Row className="cards">
+      <Col xs={12} md={12} lg={12} xl={12} align="center">
+
+        <Card className="shadow card">
+        <Card.Body className="cardBodyRSS d-flex">
+            <Card.Title className="cardTitle">Weather News</Card.Title>
+              <hr/>
+              <Container fluid>
+              <iframe className="iframe_rss" width="100%" height="100%" src="https://rss.app/embed/v1/wall/uataAX5ItkKhiiHa" scrolling="yes" frameborder="0"></iframe>
+              </Container>
+          </Card.Body>
+        </Card>
+
+
+      </Col>
       </Row>
 
 

@@ -9,23 +9,28 @@ import MapForecast from "./MapForecast"
 import './App.css'
 import AirQualityMap from './airqualitymap';
 import Hourly from './forecastpage';
-import Container from 'react-bootstrap/Container';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function App() {
   loadCss();
   return (
-    <Container className="Color" fluid>
-      <NavbarComp />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Hourly} />
-          <Route exact path="/MapForecast" component={MapForecast} />
-          <Route exact path="/airqualitymap" component={AirQualityMap} />
 
-          {/* <Route exact path="/insight" component={Insight} /> */}
-        </Switch>
-      </Router>
-    </Container>
+      <Container className="Color" fluid>
+        <Row>
+        <Col>
+            <NavbarComp />
+
+              <Switch>
+                <Route name="home" exact path="/" render={(props) => <Hourly key={props.location.state} {...props}/>}/>
+                <Route exact path="/MapForecast" component={MapForecast} />
+                <Route exact path="/airqualitymap" component={AirQualityMap} />
+
+                {/* <Route exact path="/insight" component={Insight} /> */}
+              </Switch>
+            </Col>
+          </Row>
+      </Container>
+
 
   );
 }

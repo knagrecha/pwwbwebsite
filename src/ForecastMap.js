@@ -90,7 +90,7 @@ const timeSlider = new TimeSlider({
     end: new Date(2021, 9, 14)
   }
 });
-view.ui.add(timeSlider, "bottom-left");
+view.ui.add(timeSlider, "top-left");
 
       state.data.map((data) => {
         if (state.id === data.id) {

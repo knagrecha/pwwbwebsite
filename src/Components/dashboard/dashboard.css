@@ -4,11 +4,11 @@
     width: 80vw;
     }
  .center2 {
-        display: flex;
-        justify-content:center;
-        width:30vw;
-        padding-right: 5%;
-        }
+  display: flex;
+  justify-content:center;
+  width:30vw;
+  padding-right: 5%;
+  }
 
 .center1{
     display: flex;
@@ -18,7 +18,7 @@
 }
 .dashboard {
   margin: 0;
-  padding-top: 5%;
+  padding-top: 2%;
   padding-bottom: 5%;
   padding-left: 2.5%;
   padding-right: 2.5%;
@@ -41,9 +41,8 @@
     font-size: larger;
 }
 .textSize{
-    font-size: 32px;
+    font-size: 22px;
     font-weight: bold;
-    color: green;
 }
 .backgroundNav{
     background-color: #6d81a1;
@@ -62,6 +61,7 @@
 .link {
   margin-right:40px;
   margin-left:40px;
+  color: white;
 }
 
 .textboxSearch{
@@ -92,7 +92,26 @@
     align-items: center;
     margin: 0 auto;
     margin-bottom: 5%;
+    margin-top:3%;
 }
+
+.iframe_rss {
+  min-height: 350px;
+}
+
+.cardBodyRSS {
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
+    padding-left: auto;
+    text-align: center;
+    min-height: 350px;
+
+}
+
+
 .cardBody {
     background-color: white;
     color: black;
@@ -101,6 +120,7 @@
     padding-right: auto;
     padding-left: auto;
     text-align: center;
+
 }
 
 .cardColLeft {
@@ -127,12 +147,14 @@
 .card {
     border: none;
     height: 100%;
+    margin-top: 30px;
 }
 
 .card-weather {
     border: none;
     padding-bottom: 5em;
     min-height: 400px;
+    margin-top: 30px;
 }
 
 .cardTitle {

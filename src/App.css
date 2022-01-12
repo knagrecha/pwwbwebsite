@@ -37,7 +37,11 @@
   }
 }
 .Color {
-  background-color: #dee0e3;
+  background: url("./background_image.jpeg") repeat center center;
+  position: absolute;
+ overflow: auto;
+  height: fit-content;
+  background-size: cover;
   padding: 0;
   margin: 0;
 }

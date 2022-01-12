@@ -1,205 +1,37 @@
 import * as React from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { setAirQuality } from "../redux/actions/spinner.actions.js";
+import { withRouter} from 'react-router-dom';
 import ".././airquality.style.css";
 import axios, { Axios } from 'axios';
 import Hourly from "../forecastpage.js";
 
 
 
+
 class NavbarComp extends React.Component {
   didAirQualityLoad = false;
+
   constructor(props) {
     super(props);
-    this.PostcodeForecastUrl =
-      "https://api.weatherbit.io/v2.0/forecast/daily?postal_code=";
-    this.CityForecastUrl =
-      "https://api.weatherbit.io/v2.0/forecast/daily?city="
-    //this.AqiUrl = "https://api.weatherbit.io/v2.0/current/airquality?postal_code=";
-    this.PostcodeAqiUrl = "https://api.weatherbit.io/v2.0/current?postal_code=";
-    this.CityAqiUrl = "https://api.weatherbit.io/v2.0/current/?city="
-    // this.key = process.env.REACT_APP_WEATHERBIT_KEY;
+
     this.key = "5023eb593a7c49f5b6a6a9e5184b38df";
     this.state = {
-      postalCode: "90012",
-      check: null,
-      cityName: null,
-      stateCode: null,
-      aqiCode: null,
-      weatherCode: null,
-      weatherIcon: [null, null, null, null, null],
-      weatherTemp: [null, null, null, null, null],
-      weatherMinTemp: [null, null, null, null, null],
-      weatherMaxTemp: [null, null, null, null, null],
-      date: [null, null, null, null, null],
+      value: ""
     };
   }
 
-  retrieveDataFromPostal(postalCode) {
-    const { setAirQuality } = this.props;
-    fetch(
-      this.PostcodeForecastUrl +
-        this.state.postalCode +
-        "&days=5&units=I&key=" +
-        this.key
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          postalCode: "",
-          //cityName: data.city_name,
-          //stateCode: data.state_code,
-
-          weatherTemp: [
-            data.data[0].temp,
-            data.data[1].temp,
-            data.data[2].temp,
-            data.data[3].temp,
-            data.data[4].temp,
-          ],
-          weatherMinTemp: [
-            data.data[0].min_temp,
-            data.data[1].min_temp,
-            data.data[2].min_temp,
-            data.data[3].min_temp,
-            data.data[4].min_temp,
-          ],
-          weatherMaxTemp: [
-            data.data[0].max_temp,
-            data.data[1].max_temp,
-            data.data[2].max_temp,
-            data.data[3].max_temp,
-            data.data[4].max_temp,
-          ],
-          weatherIcon: [
-            data.data[0].weather.icon,
-            data.data[1].weather.icon,
-            data.data[2].weather.icon,
-            data.data[3].weather.icon,
-            data.data[4].weather.icon,
-          ],
-          date: [
-            data.data[0].datetime,
-            data.data[1].datetime,
-            data.data[2].datetime,
-            data.data[3].datetime,
-            data.data[4].datetime,
-          ],
-        });
-      });
-
-    fetch(this.PostcodeAqiUrl + this.state.postalCode + "&key=" + this.key)
-      .then((response) => response.json())
-      .then((data) => {
-        this.didAirQualityLoad = true;
-        this.setState({
-          cityName: data.data[0].city_name,
-          stateCode: data.data[0].state_code,
-          aqiCode: data.data[0].aqi,
-        });
-      });
-  }
-
-  retrieveDataFromCity(cityName){
-    const { setAirQuality } = this.props;
-    console.log(this.CityForecastUrl +
-      this.state.postalCode +
-      "&country=US"+
-      "&days=5&units=I&key=" +
-      this.key);
-    fetch(
-      this.CityForecastUrl +
-        this.state.postalCode +
-        "&country=US"+
-        "&days=5&units=I&key=" +
-        this.key
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          postalCode: "",
-          //cityName: data.city_name,
-          //stateCode: data.state_code,
-
-          weatherTemp: [
-            data.data[0].temp,
-            data.data[1].temp,
-            data.data[2].temp,
-            data.data[3].temp,
-            data.data[4].temp,
-          ],
-          weatherMinTemp: [
-            data.data[0].min_temp,
-            data.data[1].min_temp,
-            data.data[2].min_temp,
-            data.data[3].min_temp,
-            data.data[4].min_temp,
-          ],
-          weatherMaxTemp: [
-            data.data[0].max_temp,
-            data.data[1].max_temp,
-            data.data[2].max_temp,
-            data.data[3].max_temp,
-            data.data[4].max_temp,
-          ],
-          weatherIcon: [
-            data.data[0].weather.icon,
-            data.data[1].weather.icon,
-            data.data[2].weather.icon,
-            data.data[3].weather.icon,
-            data.data[4].weather.icon,
-          ],
-          date: [
-            data.data[0].datetime,
-            data.data[1].datetime,
-            data.data[2].datetime,
-            data.data[3].datetime,
-            data.data[4].datetime,
-          ],
-        });
-      });
-
-    fetch(this.CityAqiUrl + this.state.postalCode + "&country=US" + "&key=" + this.key)
-      .then((response) => response.json())
-      .then((data) => {
-        this.didAirQualityLoad = true;
-        this.setState({
-          cityName: data.data[0].city_name,
-          stateCode: data.data[0].state_code,
-          aqiCode: data.data[0].aqi,
-        });
-      });
-  }
-
-  componentDidMount() {
-    this.retrieveDataFromPostal();
-  }
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    let parsed = parseInt(this.state.postalCode);
-
-    if (isNaN(parsed)){
-      this.retrieveDataFromCity(this.state.postalCode);
-    }else{
-      try {
-        this.retrieveDataFromPostal(this.state.postalCode);
-      } catch (e) {
-        alert("Not a valid zipcode");
-
-      }
-    }
-
-    this.setState({ postalCode: "" });
-  };
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
+    console.log(this.props);
+    this.props.history.push({
+      pathname: '/',
+      state: { data: this.state.value }
     });
+    console.log(this.props);
   };
+
 
 
 
@@ -218,9 +50,28 @@ class NavbarComp extends React.Component {
   render() {
     return (
       <div>
-         <Navbar variant="light" expand="lg" className="backgroundNav">
-            <img src="/air.png" alt="air" width="100" height="100"/>
-            <Navbar.Brand className="center3 textSize">PWWB @ CalStateLA</Navbar.Brand>
+         <Navbar variant="dark" expand="lg" className="backgroundNav">
+            <img src="/air.png" alt="air" width="50" height="50"/>
+            <Navbar.Brand className="center3 textSize">Predict What We Breathe</Navbar.Brand>
+            <Nav>
+                <Container fluid>
+                    <form onSubmit={this.handleSubmit}>
+                          <input
+                            className="center2 textboxSearch"
+                            type="text"
+                            placeholder="Enter zipcode or city name here..."
+                            value={this.state.value}
+                            onChange={(e) => { this.setState( { value: e.target.value })}}
+                            id="aq-lookup"
+                            style={{padding: "2%", textAlign: "center"}}
+                          />
+                  </form>
+
+                </Container>
+                {/*<Nav.Link href="/forecastVideo">FORECAST VIDEO</NavDropdown.Item>*/}
+
+                {/* <Nav.Link href="/insight">Insight</Nav.Link> */}
+            </Nav>
         </Navbar>
         <Navbar variant="dark" expand="lg" className="backgroundNav2">
           <Container>
@@ -234,10 +85,8 @@ class NavbarComp extends React.Component {
                   <Nav.Link className="link" href="/airqualitymap">Live Air Quality Map</Nav.Link>
                   <Nav.Link className="link" href="/">Home</Nav.Link>
                   <Nav.Link className="link" href="/MapForecast">Air Quality Forecast</Nav.Link>
-                  {/*<Nav.Link href="/forecastVideo">FORECAST VIDEO</NavDropdown.Item>*/}
-
-                  {/* <Nav.Link href="/insight">Insight</Nav.Link> */}
               </Nav>
+
             </Navbar.Collapse>
           </Container>
 
@@ -247,4 +96,4 @@ class NavbarComp extends React.Component {
   }
 }
 
-export default NavbarComp;
+export default withRouter(NavbarComp);
