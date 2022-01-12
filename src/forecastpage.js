@@ -211,7 +211,7 @@ class Hourly extends React.Component {
       navigator.geolocation.getCurrentPosition(function(position) {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
-        var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
+        var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
         fetch(url).then((response) => response.json()).then((data) => {
             console.log(data.address);
             currentComponent.setState({
