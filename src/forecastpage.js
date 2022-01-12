@@ -347,6 +347,8 @@ class Hourly extends React.Component {
       console.log("success!");
     }
 
+    const days = { 0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+
     return (
 
       <Container className="dashboard" fluid>
@@ -384,9 +386,10 @@ class Hourly extends React.Component {
 
                 <Row className="weatherRow" xs={1} s={1} md={3} lg={3} xl={3}>
                   <Col className="weatherCol">
-                    <Container fluid>
+                    <Container className="firstweatherContainer" fluid>
+
                       <div>
-                        <b> {this.state.date[0]}</b>
+                        <b> {days[new Date(this.state.date[0]).getDay()]}</b>
                       </div>
                       <img
                         id="aq-weather-icon"
@@ -397,14 +400,14 @@ class Hourly extends React.Component {
                       />
 
                       <strong>{this.state.weatherTemp[0]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[0]}&#8457; L: {this.state.weatherMinTemp[0]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[0]}&#8457; <br/> L: {this.state.weatherMinTemp[0]}&#8457;</div>
 
                     </Container>
                   </Col>
                   <Col className="weatherCol">
-                  <Container fluid>
+                  <Container className="weatherContainer" fluid>
                     <div>
-                      <b> {this.state.date[1]}</b>
+                      <b> {days[new Date(this.state.date[1]).getDay()]}</b>
                     </div>
                     <img
                       id="aq-weather-icon"
@@ -415,14 +418,14 @@ class Hourly extends React.Component {
                     />
                     <strong>{this.state.weatherTemp[1]}&#8457;</strong>
 
-                    <div>H: {this.state.weatherMaxTemp[1]}&#8457; L: {this.state.weatherMinTemp[1]}&#8457;</div>
+                    <div>H: {this.state.weatherMaxTemp[1]}&#8457; <br/> L: {this.state.weatherMinTemp[1]}&#8457;</div>
                     </Container>
                   </Col>
 
                   <Col className="weatherCol">
-                  <Container fluid>
+                  <Container className="weatherContainer" fluid>
                     <div>
-                      <b> {this.state.date[2]}</b>
+                      <b> {days[new Date(this.state.date[2]).getDay()]}</b>
                     </div>
                     <img
                       id="aq-weather-icon"
@@ -432,9 +435,10 @@ class Hourly extends React.Component {
                       alt="weather-icon"
                     />
                       <strong>{this.state.weatherTemp[2]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; L: {this.state.weatherMinTemp[2]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; <br/> L: {this.state.weatherMinTemp[2]}&#8457;</div>
                     </Container>
                   </Col>
+
                 </Row>
                 </Container>
               </Card.Body>
