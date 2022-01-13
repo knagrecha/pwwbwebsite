@@ -400,7 +400,7 @@ class Hourly extends React.Component {
                       />
 
                       <strong>{this.state.weatherTemp[0]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[0]}&#8457; <br/> L: {this.state.weatherMinTemp[0]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[0]}&#8457; L: {this.state.weatherMinTemp[0]}&#8457;</div>
 
                     </Container>
                   </Col>
@@ -418,7 +418,7 @@ class Hourly extends React.Component {
                     />
                     <strong>{this.state.weatherTemp[1]}&#8457;</strong>
 
-                    <div>H: {this.state.weatherMaxTemp[1]}&#8457; <br/> L: {this.state.weatherMinTemp[1]}&#8457;</div>
+                    <div>H: {this.state.weatherMaxTemp[1]}&#8457; L: {this.state.weatherMinTemp[1]}&#8457;</div>
                     </Container>
                   </Col>
 
@@ -435,10 +435,10 @@ class Hourly extends React.Component {
                       alt="weather-icon"
                     />
                       <strong>{this.state.weatherTemp[2]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; <br/> L: {this.state.weatherMinTemp[2]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; L: {this.state.weatherMinTemp[2]}&#8457;</div>
                     </Container>
                   </Col>
-
+                
                 </Row>
                 </Container>
               </Card.Body>
