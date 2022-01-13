@@ -219,10 +219,12 @@ class Hourly extends React.Component {
         return;
 
       }
+      console.log("Loading");
       if ("geolocation" in navigator) {
+        console.log("OK");
+        console.log(navigator["geolocation"])
         navigator.geolocation.getCurrentPosition(function(position) {
-          console.log("Latitude is :", position.coords.latitude);
-          console.log("Longitude is :", position.coords.longitude);
+          console.log(position);
           var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
           fetch(url).then((response) => response.json()).then((data) => {
               console.log(data.address);
@@ -246,9 +248,27 @@ class Hourly extends React.Component {
 
           });
 
+        }, function(error) {
+          currentComponent.setState({
+            postalCode: "90006",
+            check: null,
+            cityName: null,
+            stateCode: null,
+            aqiCode: null,
+            weatherCode: null,
+            weatherIcon: [null, null, null, null, null],
+            weatherTemp: [null, null, null, null, null],
+            weatherMinTemp: [null, null, null, null, null],
+            weatherMaxTemp: [null, null, null, null, null],
+            date: [null, null, null, null, null],
+          }, () => {
+            currentComponent.retrieveDataFromPostal()
+          });
+
         });
 
       } else {
+        console.log("deafult");
         currentComponent.setState({
           postalCode: "90006",
           check: null,
@@ -438,7 +458,7 @@ class Hourly extends React.Component {
                       <div>H: {this.state.weatherMaxTemp[2]}&#8457; L: {this.state.weatherMinTemp[2]}&#8457;</div>
                     </Container>
                   </Col>
-                
+
                 </Row>
                 </Container>
               </Card.Body>
