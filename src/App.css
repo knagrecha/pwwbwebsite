@@ -37,7 +37,7 @@
   }
 }
 .Color {
-  background: url("./background_image.jpeg") repeat center center;
+  background: url("./background_image.jpg") repeat center center;
   position: absolute;
  overflow: auto;
   height: fit-content;
