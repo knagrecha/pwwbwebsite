@@ -473,7 +473,8 @@ class Hourly extends React.Component {
             <Card.Title className="cardTitle">Weather News</Card.Title>
               <hr/>
               <Container fluid>
-              <iframe className="iframe_rss" width="100%" height="100%" src="https://rss.app/feeds/AIl1qD7RqZ9vaTEc.xml" scrolling="yes" frameborder="0"></iframe>
+
+              <iframe className="iframe_rss" width="100%" height="100%" src="https://rss.app/embed/v1/wall/AIl1qD7RqZ9vaTEc" scrolling="yes" frameborder="0"></iframe>
               </Container>
           </Card.Body>
         </Card>
