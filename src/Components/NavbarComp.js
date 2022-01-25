@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Form, InputGroup, Button } from "react-bootstrap";
 import { setAirQuality } from "../redux/actions/spinner.actions.js";
 import { withRouter} from 'react-router-dom';
-import ".././airquality.style.css";
 import axios, { Axios } from 'axios';
 import Hourly from "../forecastpage.js";
-
+import { Alarm, Map, House, InfoCircle } from "react-bootstrap-icons"
 
 
 
@@ -26,9 +25,10 @@ class NavbarComp extends React.Component {
     event.preventDefault();
     console.log(this.props);
     this.props.history.push({
-      pathname: '/',
+      pathname: '/?zip='+this.state.value,
       state: { data: this.state.value }
     });
+    this.props.history.go();
     console.log(this.props);
   };
 
@@ -50,46 +50,64 @@ class NavbarComp extends React.Component {
   render() {
     return (
       <div>
-         <Navbar variant="dark" expand="lg" className="backgroundNav">
-            <img src="/air.png" alt="air" width="50" height="50"/>
-            <Navbar.Brand className="center3 textSize">Predict What We Breathe</Navbar.Brand>
-            <Nav>
-                <Container fluid>
-                    <form onSubmit={this.handleSubmit}>
-                          <input
-                            className="center2 textboxSearch"
-                            type="text"
-                            placeholder="Enter zipcode or city name here..."
-                            value={this.state.value}
-                            onChange={(e) => { this.setState( { value: e.target.value })}}
-                            id="aq-lookup"
-                            style={{padding: "2%", textAlign: "center"}}
-                          />
-                  </form>
+         <Navbar variant="dark" expand="lg" className="upperNav">
 
-                </Container>
-                {/*<Nav.Link href="/forecastVideo">FORECAST VIDEO</NavDropdown.Item>*/}
-
-                {/* <Nav.Link href="/insight">Insight</Nav.Link> */}
-            </Nav>
-        </Navbar>
-        <Navbar variant="dark" expand="lg" className="backgroundNav2">
-          <Container>
+            <Navbar.Brand href="/"><img src="/air_la.png" alt="air" width="192" height="60"/></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="m-auto">
+              <Nav className="linkNav m-auto">
 
                   {/*<Nav.Link href="/graphs">Graphs</Nav.Link> */}
                   {/* <Nav.Link href="/hourly">Hourly</Nav.Link> */}
 
-                  <Nav.Link className="link" href="/airqualitymap">Live Air Quality Map</Nav.Link>
-                  <Nav.Link className="link" href="/">Home</Nav.Link>
-                  <Nav.Link className="link" href="/MapForecast">Air Quality Forecast</Nav.Link>
+                  <Nav.Link className="link" href="/airqualitymap"><Map style={{marginBottom: "4px", marginRight: "5px"}}/> Live Map</Nav.Link>
+                  <Nav.Link className="link" href="/"><House style={{marginBottom: "4px", marginRight: "5px"}}/> Home</Nav.Link>
+                  <Nav.Link className="link" href="/MapForecast"><Alarm style={{marginBottom: "4px", marginRight: "5px"}}/>  Daily Forecast </Nav.Link>
+                  <NavDropdown menuVariant="dark" className="myDropdown" title =<span><InfoCircle style={{marginBottom: "4px", marginRight: "5px"}}/>About</span> className="link">
+
+                      <NavDropdown.Item className="dropdownitem" href="https://www.calstatela.edu/research/data-science">Team</NavDropdown.Item>
+                      <NavDropdown.Item  className="dropdownitem"href="/publications">Publications</NavDropdown.Item>
+
+                  </NavDropdown>
+
               </Nav>
 
-            </Navbar.Collapse>
-          </Container>
 
+
+        { /*
+                    <Form onSubmit={this.handleSubmit} className="d-flex">
+
+
+                              <Form.Control
+                                className=""
+                                aria-label="search"
+                                type="search"
+
+                                value={this.state.value}
+
+                                id="aq-lookup"
+                                style={{textAlign: "center"}}
+                              />
+
+
+
+
+                  </Form>
+                    */}
+                  </Navbar.Collapse>
+        </Navbar>
+          <Navbar variant="dark" expand="lg" className="lowerNav">
+              <Nav className="m-auto">
+                    <Form onSubmit={this.handleSubmit} className="d-flex searchBox">
+                        <Form.Control
+                          type="search"
+                          placeholder="Search by zipcode or city name"
+                          className="me-2 searchForm"
+                          aria-label="Search"
+                          onChange={(e) => { this.setState( { value: e.target.value })}}
+                        />
+                    </Form>
+                </Nav>
         </Navbar>
       </div>
     );

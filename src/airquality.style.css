@@ -50,7 +50,7 @@
     background-color: maroon;
 }
 .weather-search-results{
-    
+
     padding-left: 100px;
     margin-left: 30px;
     border-radius: 25px;
@@ -61,13 +61,17 @@
     font-size: small;
 }
 .gage{
-   
+
     width: 300px;
     height: 450px;
     display: block;
-   
+
     padding-left: 40px;
     padding-top: 30px;
     border-radius: 25px;
     background-color: white;
+}
+
+.searchBox {
+  background-color: white;
 }

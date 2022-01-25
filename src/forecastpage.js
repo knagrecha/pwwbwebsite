@@ -92,6 +92,7 @@ class Hourly extends React.Component {
           ],
         });
       });
+
     console.log("working");
     fetch(this.PostcodeAqiUrl + this.state.postalCode + "&key=" + this.key)
       .then((response) => response.json())
@@ -186,7 +187,6 @@ class Hourly extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.state)
     if (this.props.location.state != null) {
 
       let data = this.props.location.state.data;
@@ -338,17 +338,6 @@ class Hourly extends React.Component {
     });
   };
 
-  componentDidMount1() {
-    axios({
-      method: 'GET',
-      url:"https://widget.airnow.gov/aq-dial-widget-primary-pollutant/?city="+this.state.cityName+"&state="+this.state.stateCode+"&country=USA&transparent=true"
-
-    }).then((resp) => {
-      this.setState({
-        aqi: resp.data.data,
-      });
-    })
-  }
 
   render() {
 
@@ -383,7 +372,7 @@ class Hourly extends React.Component {
                 <Card.Title className="cardTitle">Current Air Quality</Card.Title>
                   <hr/>
                   <Container fluid>
-                    <iframe height="300" src= {urlchange} width="230" ></iframe>
+                    <iframe className="iframe_rss" height="300" src= {urlchange} width="230" ></iframe>
                   </Container>
               </Card.Body>
             </Card>
@@ -404,7 +393,7 @@ class Hourly extends React.Component {
                   </Col>
                 </Row>
 
-                <Row className="weatherRow" xs={1} s={1} md={3} lg={3} xl={3}>
+                <Row className="weatherRow" xs={1} s={1} md={1} lg={1} xl={3}>
                   <Col className="weatherCol">
                     <Container className="firstweatherContainer" fluid>
 
@@ -420,7 +409,7 @@ class Hourly extends React.Component {
                       />
 
                       <strong>{this.state.weatherTemp[0]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[0]}&#8457; L: {this.state.weatherMinTemp[0]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[0]}&#8457;<br/> L: {this.state.weatherMinTemp[0]}&#8457;</div>
 
                     </Container>
                   </Col>
@@ -438,7 +427,7 @@ class Hourly extends React.Component {
                     />
                     <strong>{this.state.weatherTemp[1]}&#8457;</strong>
 
-                    <div>H: {this.state.weatherMaxTemp[1]}&#8457; L: {this.state.weatherMinTemp[1]}&#8457;</div>
+                    <div>H: {this.state.weatherMaxTemp[1]}&#8457;<br/> L: {this.state.weatherMinTemp[1]}&#8457;</div>
                     </Container>
                   </Col>
 
@@ -455,7 +444,7 @@ class Hourly extends React.Component {
                       alt="weather-icon"
                     />
                       <strong>{this.state.weatherTemp[2]}&#8457;</strong>
-                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; L: {this.state.weatherMinTemp[2]}&#8457;</div>
+                      <div>H: {this.state.weatherMaxTemp[2]}&#8457; <br/> L: {this.state.weatherMinTemp[2]}&#8457;</div>
                     </Container>
                   </Col>
 
@@ -467,13 +456,11 @@ class Hourly extends React.Component {
       </Row>
       <Row className="cards">
       <Col xs={12} md={12} lg={12} xl={12} align="center">
-
         <Card className="shadow card">
         <Card.Body className="cardBodyRSS d-flex">
             <Card.Title className="cardTitle">Weather News</Card.Title>
               <hr/>
               <Container fluid>
-
               <iframe className="iframe_rss" width="100%" height="100%" src="https://rss.app/embed/v1/wall/AIl1qD7RqZ9vaTEc" scrolling="yes" frameborder="0"></iframe>
               </Container>
           </Card.Body>

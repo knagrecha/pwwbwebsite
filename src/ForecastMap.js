@@ -57,8 +57,8 @@ function ForecastMap({ id }) {
       const view = new MapView({
         map: webmap,
         container: mapDiv.current,
-        center: [-118.2437, 34.050],
-        zoom: 9,
+        center: [-118.1048, 33.7414],
+        zoom: 10.5,
       });
 
       view.on("mouse-wheel", function(evt){
@@ -77,6 +77,7 @@ function ForecastMap({ id }) {
 const timeSlider = new TimeSlider({
   container: "timeSliderDiv",
   view: view,
+  loop: true,
   // show data within a given time range
   // in this case data within one year
   mode: "instant",
@@ -90,34 +91,30 @@ const timeSlider = new TimeSlider({
     end: new Date(2021, 9, 14)
   }
 });
+
+setTimeout(() => { timeSlider.play() }, 1000);
+
 view.ui.add(timeSlider, "top-left");
-
-      state.data.map((data) => {
-        if (state.id === data.id) {
-          data.layers.map((layer) => {
-            layers.push(layer);
-          });
-        }
+  state.data.map((data) => {
+    if (state.id === data.id) {
+      data.layers.map((layer) => {
+        layers.push(layer);
       });
+    }
+  });
 
-      // view.when(() => {
-      //   new LayerList({
-      //     view: view,
-      //     container: "layerlist" + id.toString(),
-      //   });
-      // });
+
 
       view.ui.move("zoom", "top-right");
-      // view.ui.add(legend, "bottom-right");
-      // map.addMany(layers);
+
     }
   }, [state]);
+
 
   return(
   <div style={styles.container}>
 
-  <div style={ styles.mapDiv } ref={mapDiv}>
-
+    <div style={ styles.mapDiv } ref={mapDiv}>
   </div>
 </div>
   )
