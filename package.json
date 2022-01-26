@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "aws-sdk": "^2.1063.0",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.1",
     "canvasjs-react-charts": "^1.0.5",
@@ -22,6 +23,9 @@
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
+  },
+  "optionalDependencies": {
+    "babel-loader": "8.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

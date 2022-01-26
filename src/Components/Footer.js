@@ -42,7 +42,8 @@ function Footer(props) {
                                 <h4>Air Quality</h4>
                                 <ul className="list-unstyled">
                                     <li><a className="linkItem" href="/">Home</a></li>
-                                    <li><a className="linkItem" href="/about">About</a></li>
+                                    <li><a className="linkItem" href="/MapForecast">Forecast</a></li>
+                                    <li><a className="linkItem" href="/airqualitymap">Live Air Quality Map</a></li>
                                 </ul>
                             </Col>
 
@@ -51,7 +52,7 @@ function Footer(props) {
                                 <ul className="list-unstyled">
                                     <li><a className="linkItem" href="/publications">Publications</a></li>
 
-                                    <li><a className="linkItem" href="/news">Media</a></li>
+                                    <li><a className="linkItem" href="https://www.calstatela.edu/research/data-science">Team</a></li>
                                 </ul>
                             </Col>
                         </Row>

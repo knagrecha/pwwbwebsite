@@ -39,7 +39,7 @@
 .Color {
   background: url("./background_image.jpg") repeat center center;
   position: absolute;
- overflow: auto;
+  overflow: auto;
   height: fit-content;
   background-size: cover;
   padding: 0;
