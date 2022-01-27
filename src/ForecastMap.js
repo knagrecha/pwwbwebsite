@@ -28,7 +28,7 @@ const Styles = styled.div`
 }
 .overlay {
   position: absolute;
-  top: 0%;
+  top: -7%;
   left: 20%;
   width: 75%;
   opacity: 0.5;
@@ -46,13 +46,16 @@ const Styles = styled.div`
   position: absolute;
   top: 5%;
   left: 5%;
-  width: 30%;
+  width: 25%;
+  height: 25%;
+  max-height: 120px;
   opacity: 1.0;
   background-color: white;
   border: 4px solid grey;
   padding: 5%;
   padding-top: 1%;
   padding-bottom: 1%;
+  z-index: 1;
 }
 
 .timeText {
@@ -63,8 +66,28 @@ const Styles = styled.div`
 
 .btn {
   background-color: white;
-  border: 0px;
-  z-index: 100;
+  color: black;
+  border: none;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+  line-height: 50px;
+  text-align: center;
+  top: 60%;
+}
+
+.icon {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  padding: 5px;
+  position: absolute;
+  pointerEvents: none;
+  top: -4%;
+  left: -3%;
 }
 
 `;
@@ -121,7 +144,7 @@ function ForecastMap(props) {
         for (let i = 0; i < selected_items.length; i++) {
           links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
           }
-        //links.reverse();
+        links.reverse();
         console.log(links);
 
         setImages(links);
@@ -153,10 +176,12 @@ function ForecastMap(props) {
   function previousImage() {
     console.log("GOING BACK!!");
     if (index == 0) {
+      document.getElementById("overlayImage").src = images[images.length-1];
       setIndex(images.length-1);
       setTime(new Date().getHours());
       setDay(new Date().getDay()+1);
     } else {
+      document.getElementById("overlayImage").src = images[index-1];
       setIndex(index-1);
       if (time == 0) {
         setTime(23);
@@ -168,12 +193,14 @@ function ForecastMap(props) {
   }
 
   function nextImage() {
-    console.log("CALLED!");
+
     if (index >= images.length-1) {
       setIndex(0);
       setTime(new Date().getHours());
       setDay(new Date().getDay());
+      document.getElementById("overlayImage").src = images[0];
     } else {
+      document.getElementById("overlayImage").src = images[index+1];
       setIndex(index+1);
       if (time == 23) {
         setTime(0);
@@ -186,21 +213,9 @@ function ForecastMap(props) {
 
   useInterval(() => {
     if (!paused) {
-      document.getElementById("overlayImage").src = images[index];
-      if (index == images.length-1) {
-        setIndex(0);
-        setTime(new Date().getHours());
-      } else {
-        setIndex(index+1);
-        if (time == 23) {
-          setTime(0);
-        } else {
-          setTime(time+1);
-        }
-      }
+      nextImage();
     }
-
-  }, 2000)
+  }, 1000)
 
 
 
@@ -215,34 +230,32 @@ function ForecastMap(props) {
     <Styles>
       <Container fluid className="mapContainer">
           <img className="mapImage" src={Map}/ >
-          <Container className="timeOverlay">
+          <Container className="timeOverlay d-none d-md-block">
               <Row>
                   <Col>
                     <h1 className="timeText">{days[day]} {time+":00"}</h1>
                   </Col>
               </Row>
-              {/*
-              <Row xs={1} s={1} md={2} lg={4} xl={4}>
-                  <Col>
-                    <Button className="btn" onClick={previousImage}><BsSkipBackward size={48} style={{backgroundColor: "white", color: "black", border: "2px solid black", padding: "5px", pointerEvents: 'none'}}/></Button>
-                  </Col>
-                  <Col>
-                    <Button className="btn" onClick={() => {setPaused(true)}}><AiOutlinePause size={48} style={{backgroundColor: "white", color: "black", border: "2px solid black", padding: "5px", pointerEvents: 'none'}}/></Button>
-                  </Col>
-                  <Col>
-                    <Button className="btn" onClick={() => {setPaused(false)}}><FiPlay size={48} style={{backgroundColor: "white", color: "black",border: "2px solid black", padding: "5px", pointerEvents: 'none'}}/></Button>
-                  </Col>
-                  <Col>
-                    <Button className="btn" onClick={nextImage}><BsSkipForward size={48} style={{backgroundColor: "white", color: "black",border: "2px solid black", padding: "5px", pointerEvents: 'none'}}/></Button>
-                  </Col>
 
+              <Row xs={1} s={1} md={4} lg={4} xl={4} style={{marginTop: "5%"}}>
+                  <Col className="d-none d-sm-block">
+                    <Button className="btn" onClick={previousImage}><BsSkipBackward size={36} className="icon"/></Button>
+                  </Col>
+                  <Col className="d-none d-sm-block">
+                    <Button className="btn" onClick={() => {setPaused(true)}}><AiOutlinePause size={36} className="icon"/></Button>
+                  </Col>
+                  <Col className="d-none d-sm-block">
+                    <Button className="btn" onClick={() => {setPaused(false)}}><FiPlay size={36} className="icon"/></Button>
+                  </Col>
+                  <Col className="d-none d-sm-block">
+                    <Button className="btn" onClick={nextImage}><BsSkipForward size={36} className="icon"/></Button>
+                  </Col>
             </Row>
-            */}
+
           </Container>
 
           <img className="scaleOverlay" src={Scale}/ >
-          <img className="overlay" id="overlayImage" src={images[images.length-1]}/>
-          <div className="overlay" style={{backgroundImage: images[images.length-1]}}/>
+          <img className="overlay" id="overlayImage" src={images[0]}/>
       </Container>
 
 
