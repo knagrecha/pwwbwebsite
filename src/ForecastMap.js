@@ -47,8 +47,8 @@ const Styles = styled.div`
   top: 5%;
   left: 5%;
   width: 25%;
-  height: 25%;
-  max-height: 120px;
+  height: 35%;
+  max-height: 180px;
   opacity: 1.0;
   background-color: white;
   border: 4px solid grey;
@@ -63,6 +63,14 @@ const Styles = styled.div`
   font-weight: 300;
   font-size: 150%;
 }
+
+
+.timeTextSub {
+  text-align: center;
+  font-weight: 300;
+  font-size: 120%;
+}
+
 
 .btn {
   background-color: white;
@@ -100,6 +108,7 @@ function ForecastMap(props) {
   const [index, setIndex] = useState(0);
   const [time, setTime] = useState(new Date().getHours());
   const [day, setDay] = useState(new Date().getDay());
+  const [date, setDate] = useState(new Date().toDateString());
   const [paused, setPaused] = useState(false);
 
   const days = {
@@ -111,6 +120,7 @@ function ForecastMap(props) {
     5: "Friday",
     6: "Saturday",
   }
+
 
   const s3 = new AWS.S3();
 
@@ -180,12 +190,16 @@ function ForecastMap(props) {
       setIndex(images.length-1);
       setTime(new Date().getHours());
       setDay(new Date().getDay()+1);
+      var temp = new Date();
+      temp.setDate(temp.getDate()+1)
+      setDate(temp.toDateString());
     } else {
       document.getElementById("overlayImage").src = images[index-1];
       setIndex(index-1);
       if (time == 0) {
         setTime(23);
         setDay(new Date().getDay());
+        setDate(new Date().toDateString());
       } else {
         setTime(time-1);
       }
@@ -198,6 +212,7 @@ function ForecastMap(props) {
       setIndex(0);
       setTime(new Date().getHours());
       setDay(new Date().getDay());
+      setDate(new Date().toDateString());
       document.getElementById("overlayImage").src = images[0];
     } else {
       document.getElementById("overlayImage").src = images[index+1];
@@ -205,6 +220,9 @@ function ForecastMap(props) {
       if (time == 23) {
         setTime(0);
         setDay(day+1);
+        var temp = new Date();
+        temp.setDate(temp.getDate()+1)
+        setDate(temp.toDateString());
       } else {
         setTime(time+1);
       }
@@ -233,7 +251,12 @@ function ForecastMap(props) {
           <Container className="timeOverlay d-none d-md-block">
               <Row>
                   <Col>
-                    <h1 className="timeText">{days[day]} {time+":00"}</h1>
+                    <h1 className="timeText">{date}</h1>
+                  </Col>
+              </Row>
+              <Row>
+                  <Col>
+                    <h3 className="timeTextSub">{time+":00"}</h3>
                   </Col>
               </Row>
 
