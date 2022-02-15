@@ -9,6 +9,7 @@ import MapForecast from "./MapForecast"
 import Footer from "./Components/Footer";
 import './App.css'
 import AirQualityMap from './airqualitymap';
+import Charts from './Charts';
 import Publications from './publications'
 import Hourly from './forecastpage';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -25,6 +26,7 @@ function App() {
               <Switch>
                 <Route exact path="/MapForecast" component={MapForecast} />
                 <Route exact path="/airqualitymap" component={AirQualityMap} />
+                <Route exact path="/charts" component={Charts} />
                 <Route name="publications" exact path="/publications" component={Publications}/>
                 <Route name="home" path="/:zip" render={(props) => <Hourly key={props.location.state} {...props}/>}/>
                 <Route name="home" exact path="/" render={(props) => <Hourly key={props.location.state} {...props}/>}/>

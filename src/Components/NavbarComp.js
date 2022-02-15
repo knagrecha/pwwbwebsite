@@ -4,7 +4,7 @@ import { setAirQuality } from "../redux/actions/spinner.actions.js";
 import { withRouter} from 'react-router-dom';
 import axios, { Axios } from 'axios';
 import Hourly from "../forecastpage.js";
-import { Alarm, Map, House, InfoCircle } from "react-bootstrap-icons"
+import { Alarm, Map, House, InfoCircle, BarChart } from "react-bootstrap-icons"
 
 
 
@@ -63,6 +63,7 @@ class NavbarComp extends React.Component {
                   <Nav.Link className="link" href="/airqualitymap"><Map style={{marginBottom: "4px", marginRight: "5px"}}/> Live Map</Nav.Link>
                   <Nav.Link className="link" href="/"><House style={{marginBottom: "4px", marginRight: "5px"}}/> Home</Nav.Link>
                   <Nav.Link className="link" href="/MapForecast"><Alarm style={{marginBottom: "4px", marginRight: "5px"}}/>  Daily Forecast </Nav.Link>
+                  <Nav.Link className="link" href="/charts"><BarChart style={{marginBottom: "4px", marginRight: "5px"}}/> Charts </Nav.Link>
                   <NavDropdown menuVariant="dark" className="myDropdown" title =<span><InfoCircle style={{marginBottom: "4px", marginRight: "5px"}}/>About</span> className="link">
                       <NavDropdown.Item className="dropdownitem" href="https://airquality.lacity.org/">Project</NavDropdown.Item>
                       <NavDropdown.Item className="dropdownitem" href="https://www.calstatela.edu/research/data-science">Team</NavDropdown.Item>
