@@ -48,18 +48,34 @@ function Charts() {
         }
         var localMaxVal = -1;
         selected_items = new_data_keys.slice(0, imageCount);
+
         for (let i = 0; i < selected_items.length; i++) {
-          var arr =selected_items[i].Key.split('-');
-          arr = parseInt(arr[arr.length-1].split(".")[0]);
-          if (arr > localMaxVal) {
-            localMaxVal = arr;
-          }
-          links.push([dates[i], arr]);
+            var arr =selected_items[i].Key.split('-');
+            arr = parseInt(arr[arr.length-1].split(".")[0]);
+            if (arr > localMaxVal) {
+              localMaxVal = arr;
+            }
+            if (arr < 15) {
+              links.push([dates[i].getHours() + ":00", arr, '#48cf13']);
+            }
+            else if (15 <= arr && arr < 17) {
+              links.push([dates[i].getHours() + ":00", arr, '#b9cf13']);
+            }
+            else if (17 <= arr && arr < 19) {
+              links.push([dates[i].getHours() + ":00", arr, '#cfbf13']);
+            }
+            else if (19 <= arr && arr < 20) {
+              links.push([dates[i].getHours() + ":00", arr, '#cf8013']);
+            }
+            else {
+              links.push([dates[i].getHours() + ":00", arr, '#cf2f13']);
+            }
+
           }
         setMaxVal(localMaxVal);
         links.reverse();
 
-        links.unshift(["Date", "PM2.5"]);
+        links.unshift(["Date", "PM2.5", { role: 'style' }]);
         console.log(links);
         setValues(links);
 
@@ -74,14 +90,16 @@ function Charts() {
   }, []);
 
   const options = {
-    chart: {
-      title: "Average Hourly Los Angeles PM2.5 Levels",
-      legend: { position: "right" },
-    },
+
+      title: "Average Hourly Los Angeles PM2.5 Levels (micrograms per cubic meter)",
+      legend: 'none',
+
       vAxis: {
-        title: "PM2.5 Levels (micrograms per cubic meter)",
         maxValue: maxVal + 10
       },
+      hAxis: {
+        slantedText:true, slantedTextAngle:45
+      }
   };
 
   return (
@@ -96,7 +114,7 @@ function Charts() {
                   <hr/>
                   <Container fluid>
                   <Chart
-                    chartType="Bar"
+                    chartType="ColumnChart"
                     options={options}
                     data={values}
                     width="100%"

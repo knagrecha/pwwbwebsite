@@ -59,7 +59,7 @@ function Footer(props) {
                         <hr className="hrClass"/>
                         <Row>
                             <p className="col-sm">
-                                &copy;{new Date().getFullYear()} California State University Los Angeles. All Rights Reserved.
+                                &copy;{new Date().getFullYear()} Kabir Nagrecha. All Rights Reserved. Contact at knagrech@ucsd.edu.
                             </p>
                         </Row>
                     </Container>

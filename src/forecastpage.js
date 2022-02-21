@@ -21,7 +21,7 @@ class Hourly extends React.Component {
     this.CityAqiUrl = "https://api.weatherbit.io/v2.0/current/?city="
     // this.widget = "https://widget.airnow.gov/aq-flag-widget/?a=today&z=90012&n=losAngeles"
     // this.key = process.env.REACT_APP_WEATHERBIT_KEY;
-    this.key = "5023eb593a7c49f5b6a6a9e5184b38df";
+    this.key = "ae1eace77edc4aca9228e9b7b165ddb4";
     // this.key = "db5d97de2f5e423bb3dd7e130101a7dd";
     this.loading = true;
 

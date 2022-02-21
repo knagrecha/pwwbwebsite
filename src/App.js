@@ -6,6 +6,8 @@ import NavbarComp from "./Components/NavbarComp";
 import Home from "./Components/pages/Home";
 import Dashboard from "./Components/dashboard/dashboard.component"
 import MapForecast from "./MapForecast"
+import MapForecast_CA from "./MapForecast_CA"
+import MapForecast_NO from "./MapForecast_NO"
 import Footer from "./Components/Footer";
 import './App.css'
 import AirQualityMap from './airqualitymap';
@@ -25,6 +27,8 @@ function App() {
 
               <Switch>
                 <Route exact path="/MapForecast" component={MapForecast} />
+                <Route exact path="/MapForecastNO" component={MapForecast_NO} />
+                <Route exact path="/MapForecastCA" component={MapForecast_CA} />
                 <Route exact path="/airqualitymap" component={AirQualityMap} />
                 <Route exact path="/charts" component={Charts} />
                 <Route name="publications" exact path="/publications" component={Publications}/>
