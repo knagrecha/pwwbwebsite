@@ -12,7 +12,7 @@ import DigitalTwinHC from './DigitalTwinHC';
 import DigitalTwinNO from './DigitalTwinNO2';
 import DigitalTwinTraffic from './DigitalTwinTraffic';
 import DigitalTwinPM from './DigitalTwinPM'
-import DigitalTwinCO from './DigitalTwinCo2';
+import DigitalTwinCO from './DigitalTwinCO2.js';
 import Footer from "./Components/Footer";
 import './App.css'
 import AirQualityMap from './airqualitymap';
