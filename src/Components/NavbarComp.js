@@ -72,6 +72,7 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinPM">Traffic PM2.5</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinNO">Traffic NO2</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic HydroCarbons</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO2</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link className="link" href="/charts"><BarChart style={{ marginBottom: "4px", marginRight: "3px" }} /> Charts </Nav.Link>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><InfoCircle style={{ marginBottom: "4px", marginRight: "3px" }} />About</span> className="link">
