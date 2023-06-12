@@ -32,6 +32,7 @@ function LeafletMap({ imageUrl }) {
         // Fit the map to the LatLng bounds
         map.fitBounds(latLngBounds);
 
+
         // Cleanup the map instance on component unmount
         return () => {
             map.remove();

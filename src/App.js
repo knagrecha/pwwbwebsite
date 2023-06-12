@@ -10,6 +10,7 @@ import MapForecast_CA from "./MapForecast_CA"
 import MapForecast_NO from "./MapForecast_NO"
 import DigitalTwinHC from './DigitalTwinHC';
 import DigitalTwinNO from './DigitalTwinNO2';
+import DigitalTwinTraffic from './DigitalTwinTraffic';
 import DigitalTwinPM from './DigitalTwinPM'
 import Footer from "./Components/Footer";
 import './App.css'
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/DigitalTwinPM" component={DigitalTwinPM} />
             <Route exact path="/DigitalTwinNO" component={DigitalTwinNO} />
             <Route exact path="/DigitalTwinHC" component={DigitalTwinHC} />
+            <Route exact path="/DigitalTwinTraffic" component={DigitalTwinTraffic} />
             <Route exact path="/airqualitymap" component={AirQualityMap} />
             <Route exact path="/charts" component={Charts} />
             <Route name="publications" exact path="/publications" component={Publications} />
