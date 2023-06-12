@@ -63,9 +63,9 @@ class NavbarComp extends React.Component {
               <Nav.Link className="link" href="/airqualitymap"><Map style={{ marginBottom: "4px", marginRight: "3px" }} /> Live Map</Nav.Link>
               <Nav.Link className="link" href="/"><House style={{ marginBottom: "4px", marginRight: "3px" }} /> Home</Nav.Link>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Alarm style={{ marginBottom: "4px", marginRight: "3px" }} />  Daily Forecast</span> className="link">
-                <NavDropdown.Item className="dropdownitem" href="/MapForecast">PM2.5 Los Angeles</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/MapForecastNO">NO2 Los Angeles</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/MapForecastCA">PM2.5 California</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/MapForecast">PM<sub>2.5</sub> Los Angeles</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/MapForecastNO">NO<sub>2</sub> Los Angeles</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/MapForecastCA">PM<sub>2.5</sub> California</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Truck style={{ marginBottom: "4px", marginRight: "3px" }} />Digital Twins</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinTraffic">Traffic Counts Estimate</NavDropdown.Item>
