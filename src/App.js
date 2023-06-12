@@ -8,6 +8,10 @@ import Dashboard from "./Components/dashboard/dashboard.component"
 import MapForecast from "./MapForecast"
 import MapForecast_CA from "./MapForecast_CA"
 import MapForecast_NO from "./MapForecast_NO"
+import DigitalTwinHC from './DigitalTwinHC';
+import DigitalTwinNO from './DigitalTwinNO2';
+import DigitalTwinTraffic from './DigitalTwinTraffic';
+import DigitalTwinPM from './DigitalTwinPM'
 import Footer from "./Components/Footer";
 import './App.css'
 import AirQualityMap from './airqualitymap';
@@ -20,27 +24,31 @@ function App() {
   loadCss();
   return (
 
-      <Container className="Color" fluid>
-        <Row>
+    <Container className="Color" fluid>
+      <Row>
         <Col>
-            <NavbarComp />
+          <NavbarComp />
 
-              <Switch>
-                <Route exact path="/MapForecast" component={MapForecast} />
-                <Route exact path="/MapForecastNO" component={MapForecast_NO} />
-                <Route exact path="/MapForecastCA" component={MapForecast_CA} />
-                <Route exact path="/airqualitymap" component={AirQualityMap} />
-                <Route exact path="/charts" component={Charts} />
-                <Route name="publications" exact path="/publications" component={Publications}/>
-                <Route name="home" path="/:zip" render={(props) => <Hourly key={props.location.state} {...props}/>}/>
-                <Route name="home" exact path="/" render={(props) => <Hourly key={props.location.state} {...props}/>}/>
+          <Switch>
+            <Route exact path="/MapForecast" component={MapForecast} />
+            <Route exact path="/MapForecastNO" component={MapForecast_NO} />
+            <Route exact path="/MapForecastCA" component={MapForecast_CA} />
+            <Route exact path="/DigitalTwinPM" component={DigitalTwinPM} />
+            <Route exact path="/DigitalTwinNO" component={DigitalTwinNO} />
+            <Route exact path="/DigitalTwinHC" component={DigitalTwinHC} />
+            <Route exact path="/DigitalTwinTraffic" component={DigitalTwinTraffic} />
+            <Route exact path="/airqualitymap" component={AirQualityMap} />
+            <Route exact path="/charts" component={Charts} />
+            <Route name="publications" exact path="/publications" component={Publications} />
+            <Route name="home" path="/:zip" render={(props) => <Hourly key={props.location.state} {...props} />} />
+            <Route name="home" exact path="/" render={(props) => <Hourly key={props.location.state} {...props} />} />
 
-              </Switch>
-              <Footer/>
-            </Col>
-          </Row>
+          </Switch>
+          <Footer />
+        </Col>
+      </Row>
 
-      </Container>
+    </Container>
 
 
   );

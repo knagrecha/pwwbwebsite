@@ -35,35 +35,37 @@ function Footer(props) {
 
     return (
         <Styles>
-                <Container className="main-footer">
-                    <Container>
-                        <Row>
-                            <Col>
-                                <h4>Air Quality</h4>
-                                <ul className="list-unstyled">
-                                    <li><a className="linkItem" href="/">Home</a></li>
-                                    <li><a className="linkItem" href="/MapForecast">Forecast</a></li>
-                                    <li><a className="linkItem" href="/airqualitymap">Live Air Quality Map</a></li>
-                                </ul>
-                            </Col>
+            <Container className="main-footer">
+                <Container>
+                    <Row>
+                        <Col>
+                            <h4>Air Quality</h4>
+                            <ul className="list-unstyled">
+                                <li><a className="linkItem" href="/">Home</a></li>
+                                <li><a className="linkItem" href="/MapForecast">Forecast</a></li>
+                                <li><a className="linkItem" href="/airqualitymap">Live Air Quality Map</a></li>
+                            </ul>
+                        </Col>
 
-                            <Col>
-                                <h4>News</h4>
-                                <ul className="list-unstyled">
-                                    <li><a className="linkItem" href="/publications">Publications</a></li>
+                        <Col>
+                            <h4>News</h4>
+                            <ul className="list-unstyled">
+                                <li><a className="linkItem" href="/publications">Publications</a></li>
 
-                                    <li><a className="linkItem" href="https://www.calstatela.edu/research/data-science">Team</a></li>
-                                </ul>
-                            </Col>
-                        </Row>
-                        <hr className="hrClass"/>
+                                <li><a className="linkItem" href="https://www.calstatela.edu/research/data-science">Team</a></li>
+                            </ul>
+                        </Col>
+                    </Row>
+                    <hr className="hrClass" />
+                    {/*
                         <Row>
                             <p className="col-sm">
                                 &copy;{new Date().getFullYear()} Kabir Nagrecha. All Rights Reserved. Contact at knagrech@ucsd.edu.
                             </p>
                         </Row>
-                    </Container>
+    */}
                 </Container>
+            </Container>
 
         </Styles>
     )
