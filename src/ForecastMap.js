@@ -114,13 +114,21 @@ const ForecastMap = (props) => {
             <ImageOverlay
               url={images[selectedImageIndex]}
               bounds={bounds}
+              opacity={0.5}
             />
           </MapContainer>
           <Box display="flex" justifyContent="center" margin={2}>
-            <Button variant="outlined" onClick={handleBackward}><ArrowBackIosIcon /></Button>
-            <Button variant="outlined" onClick={isPlaying ? handlePause : handlePlay}>{isPlaying ? <PauseIcon /> : <PlayArrowIcon />}</Button>
-            <Button variant="outlined" onClick={handleForward}><ArrowForwardIosIcon /></Button>
+            <Button variant="outlined" style={{ marginRight: '5px', background: 'white' }} onClick={handleBackward}>
+              <ArrowBackIosIcon />
+            </Button>
+            <Button variant="outlined" style={{ margin: '0 5px', background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
+              {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+            </Button>
+            <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
+              <ArrowForwardIosIcon />
+            </Button>
           </Box>
+
         </div>
       )}
     </div>

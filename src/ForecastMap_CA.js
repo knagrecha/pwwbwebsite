@@ -1,14 +1,147 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
-import Map from './california_background_map.png';
-import Scale from './scale.png';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { AiOutlinePause } from "react-icons/ai";
-import { FiPlay } from "react-icons/fi";
-import { BsSkipBackward, BsSkipForward } from "react-icons/bs";
-
-
+import { MapContainer, TileLayer, ImageOverlay } from 'react-leaflet';
+import { Button, Icon, Box } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AWS from 'aws-sdk';
+import "leaflet/dist/leaflet.css";
+
+const ForecastMap_CA = (props) => {
+
+
+
+
+  const imageUrls = [
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-17-23.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-00.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-01.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-02.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-03.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-04.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-05.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-06.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-07.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-08.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-09.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-10.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-11.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-12.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-13.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-14.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-15.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-16.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-17.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-18.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-19.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-18-20.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-23-16.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/californiaPredictions/pred-2022-05-23-17.png"]
+
+
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const intervalRef = useRef();
+
+  const bounds = [
+    [43.25, -129.7],
+    [30.9, -109.8]
+  ];
+
+  useEffect(() => {
+    const loadImages = async () => {
+      try {
+        const loadedImages = await Promise.all(
+          imageUrls.map((url) => {
+            return new Promise((resolve, reject) => {
+              const image = new Image();
+              image.src = url;
+              image.onload = () => {
+                resolve(url);
+              };
+              image.onerror = reject;
+            });
+          })
+        );
+
+        setImages(loadedImages);
+        setLoading(false);
+      } catch (error) {
+        console.log('Failed to load images:', error);
+      }
+    };
+
+    loadImages();
+  }, []);
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+    intervalRef.current = setInterval(() => {
+      setSelectedImageIndex((prevIndex) => {
+        return (prevIndex + 1) % images.length;
+      });
+    }, 500);
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+    clearInterval(intervalRef.current);
+  };
+
+  const handleForward = () => {
+    setSelectedImageIndex((prevIndex) => {
+      return (prevIndex + 1) % images.length;
+    });
+  };
+
+  const handleBackward = () => {
+    setSelectedImageIndex((prevIndex) => {
+      return (prevIndex - 1 + images.length) % images.length;
+    });
+  };
+
+  return (
+    <div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <MapContainer center={[37.2, -117.2]} zoom={6} style={{ height: "500px", width: "100%" }}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <ImageOverlay
+              url={images[selectedImageIndex]}
+              bounds={bounds}
+              opacity={0.5}
+            />
+          </MapContainer>
+          <Box display="flex" justifyContent="center" margin={2}>
+            <Button variant="outlined" style={{ marginRight: '5px', background: 'white' }} onClick={handleBackward}>
+              <ArrowBackIosIcon />
+            </Button>
+            <Button variant="outlined" style={{ margin: '0 5px', background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
+              {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+            </Button>
+            <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
+              <ArrowForwardIosIcon />
+            </Button>
+          </Box>
+
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+
+/*
 
 const Styles = styled.div`
   .mapContainer {
@@ -28,18 +161,16 @@ const Styles = styled.div`
 }
 .overlay {
   position: absolute;
-  top: -8%;
-  left: 28%;
-  height: 120%;
-  width: 90%;
+  top: -7%;
+  left: 20%;
+  width: 75%;
   opacity: 0.5;
-  transform: rotate(2deg);
 }
 
 .scaleOverlay {
   position: absolute;
   top: 65%;
-  left: 10%;
+  left: 5%;
   width: 25%;
   opacity: 1.0;
 }
@@ -52,7 +183,7 @@ const Styles = styled.div`
   height: 35%;
   max-height: 180px;
   opacity: 1.0;
-  background-color: white;
+  background-color: white; 
   border: 4px solid grey;
   padding: 5%;
   padding-top: 1%;
@@ -102,190 +233,132 @@ const Styles = styled.div`
 
 `;
 
+*/
+/*
 
+function ForecastMap(props) {
+  /*
+   const [imageUrls, setImageUrls] = useState([]);
+   const [loading, setLoading] = useState(true);
+   const [index, setIndex] = useState(0);
+   const [time, setTime] = useState(new Date().getHours());
+   const [day, setDay] = useState(new Date().getDay());
+   const [date, setDate] = useState(new Date().toDateString());
+   const [paused, setPaused] = useState(false);
+ 
+   const days = {
+     0: "Sunday",
+     1: "Monday",
+     2: "Tuesday",
+     3: "Wednesday",
+     4: "Thursday",
+     5: "Friday",
+     6: "Saturday",
+   }
+ 
+ 
+   const s3 = new AWS.S3();
+ 
+   const downloadImages = () => {
+ 
+     console.log("DOWNLOADING!");
+ 
+     var fileName;
+ 
+     const params = {
+       Bucket: "sagemaker-us-east-2-958520404663",
+       Prefix: `sagemaker/predictions/`,
+     };
+ 
+     const imageCount = 24;
+     var selected_items;
+     var links = [];
+     s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, data) {
+       console.log(data);
+       if (err) console.log(err, err.stack); // an error occurred
+       else {
+         var data_keys = data["Contents"];
+         data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 1);
+         var new_data_keys = [];
+         for (let i = 0; i < data_keys.length; i++) {
+           if (data_keys[i].Key.includes("png")) {
+             new_data_keys.push(data_keys[i]);
+           }
+         }
+         selected_items = new_data_keys.slice(0, imageCount);
+         for (let i = 0; i < selected_items.length; i++) {
+           links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
+         }
+         links.reverse();
+         console.log(JSON.stringify(links));
+ 
+         setImageUrls(links);
+ 
+         console.log("DOWNLOAD COMPLETE")
+         setLoading(false);
+ 
+       }
+     });
+ 
+ 
+ 
+   }
+ 
+ 
+ 
+   useEffect(() => {
+     downloadImages();
+   }, []);
+ 
+ 
+ 
+ 
+   return (
+     <div>
+       {
+         loading ? (
+           <p> Loading & waiting...</p >
+         ) : (
+           MyMap({ imageUrls: imageUrls })
+         )
+       }
+     </div>
+   )
+  */
 
-function ForecastMap_CA(props) {
-
-  const [images, setImages] = useState([]);
-  const [index, setIndex] = useState(0);
-  const [time, setTime] = useState(new Date().getHours());
-  const [day, setDay] = useState(new Date().getDay());
-  const [date, setDate] = useState(new Date().toDateString());
-  const [paused, setPaused] = useState(false);
-
-  const days = {
-    0: "Sunday",
-    1: "Monday",
-    2: "Tuesday",
-    3: "Wednesday",
-    4: "Thursday",
-    5: "Friday",
-    6: "Saturday",
-  }
-
-
-  const s3 = new AWS.S3();
-
-  const downloadImages = () => {
-
-    console.log("DOWNLOADING!");
-
-    var fileName;
-
-    const params = {
-     Bucket: "sagemaker-us-east-2-958520404663",
-     Prefix: `sagemaker/californiaPredictions/`,
-   };
-
-   const imageCount = 24;
-   var selected_items;
-   var links = [];
-    s3.makeUnauthenticatedRequest('listObjectsV2', params, function(err, data) {
-      console.log(data);
-      if (err) console.log(err, err.stack); // an error occurred
-      else {
-        var data_keys = data["Contents"];
-        data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 1);
-        var new_data_keys = [];
-        for (let i = 0; i < data_keys.length; i++) {
-          if (data_keys[i].Key.includes("png")) {
-            new_data_keys.push(data_keys[i]);
-          }
-        }
-        selected_items = new_data_keys.slice(0, imageCount);
-        for (let i = 0; i < selected_items.length; i++) {
-          links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
-          }
-        links.reverse();
-        console.log(links);
-
-        setImages(links);
-
-      }
-    });
-
-
-
-  }
-
-  function useInterval(callback, delay) {
-      const savedCallback = useRef();
-
-      useEffect(() => {
-        savedCallback.current = callback;
-      }, [callback]);
-
-      useEffect(() => {
-        function tick() {
-          savedCallback.current();
-        }
-
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-    }, [delay]);
-  }
-
-  function previousImage() {
-    console.log("GOING BACK!!");
-    if (index == 0) {
-      document.getElementById("overlayImage").src = images[images.length-1];
-      setIndex(images.length-1);
-      setTime(new Date().getHours());
-      setDay(new Date().getDay()+1);
-      var temp = new Date();
-      temp.setDate(temp.getDate()+1)
-      setDate(temp.toDateString());
-    } else {
-      document.getElementById("overlayImage").src = images[index-1];
-      setIndex(index-1);
-      if (time == 0) {
-        setTime(23);
-        setDay(new Date().getDay());
-        setDate(new Date().toDateString());
-      } else {
-        setTime(time-1);
-      }
-    }
-  }
-
-  function nextImage() {
-
-    if (index >= images.length-1) {
-      setIndex(0);
-      setTime(new Date().getHours());
-      setDay(new Date().getDay());
-      setDate(new Date().toDateString());
-      document.getElementById("overlayImage").src = images[0];
-    } else {
-      document.getElementById("overlayImage").src = images[index+1];
-      setIndex(index+1);
-      if (time == 23) {
-        setTime(0);
-        setDay(day+1);
-        var temp = new Date();
-        temp.setDate(temp.getDate()+1)
-        setDate(temp.toDateString());
-      } else {
-        setTime(time+1);
-      }
-    }
-  }
-
-  useInterval(() => {
-    if (!paused) {
-      nextImage();
-    }
-  }, 1000)
-
-
-
-  useEffect(() => {
-    downloadImages();
-  }, []);
-
-
-
-
-  return(
-    <Styles>
-      <Container fluid className="mapContainer">
-          <img className="mapImage" src={Map}/ >
-          <Container className="timeOverlay d-none d-md-block">
-              <Row>
-                  <Col>
-                    <h1 className="timeText">{date}</h1>
-                  </Col>
-              </Row>
-              <Row>
-                  <Col>
-                    <h3 className="timeTextSub">{time+":00"}</h3>
-                  </Col>
-              </Row>
-
-              <Row xs={1} s={1} md={4} lg={4} xl={4} style={{marginTop: "5%"}}>
-                  <Col className="d-none d-sm-block">
-                    <Button className="btn" onClick={previousImage}><BsSkipBackward size={36} className="icon"/></Button>
-                  </Col>
-                  <Col className="d-none d-sm-block">
-                    <Button className="btn" onClick={() => {setPaused(true)}}><AiOutlinePause size={36} className="icon"/></Button>
-                  </Col>
-                  <Col className="d-none d-sm-block">
-                    <Button className="btn" onClick={() => {setPaused(false)}}><FiPlay size={36} className="icon"/></Button>
-                  </Col>
-                  <Col className="d-none d-sm-block">
-                    <Button className="btn" onClick={nextImage}><BsSkipForward size={36} className="icon"/></Button>
-                  </Col>
-            </Row>
-
-          </Container>
-
-          <img className="scaleOverlay" src={Scale}/ >
-          <img className="overlay" id="overlayImage" src={images[0]}/>
-      </Container>
-
-
-  </Styles>
+/*
+  const urls = [
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-18.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-19.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-20.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-21.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-22.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-23.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-00.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-01.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-02.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-03.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-04.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-05.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-06.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-07.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-08.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-09.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-10.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-11.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-12.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-13.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14-avg-15.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-15-avg-15.png",
+    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-16-avg-15.png"]
+  return (
+ 
+    MyMap({ imageUrls: urls })
+ 
   )
+ 
 }
+*/
 
 export default ForecastMap_CA;
