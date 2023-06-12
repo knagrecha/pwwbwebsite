@@ -68,11 +68,11 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/MapForecastCA">PM2.5 California</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Truck style={{ marginBottom: "4px", marginRight: "3px" }} />Digital Twins</span> className="link">
-                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinTraffic">Traffic Counts</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinPM">Traffic PM2.5</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinNO">Traffic NO2</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic HydroCarbons</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO2</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinTraffic">Traffic Counts Estimate</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinPM">Traffic PM2.5 Estimate</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinNO">Traffic NO<sub>2</sub> Estimate</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic Hydrocarbons Estimate</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO<sub>2</sub> Estimate</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link className="link" href="/charts"><BarChart style={{ marginBottom: "4px", marginRight: "3px" }} /> Charts </Nav.Link>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><InfoCircle style={{ marginBottom: "4px", marginRight: "3px" }} />About</span> className="link">
