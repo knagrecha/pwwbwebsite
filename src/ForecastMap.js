@@ -7,6 +7,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AWS from 'aws-sdk';
+import "leaflet/dist/leaflet.css";
 
 const ForecastMap = (props) => {
 
