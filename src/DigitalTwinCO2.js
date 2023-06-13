@@ -22,7 +22,7 @@ class DigitalTwinCO extends React.Component {
 
 
                 <div className="center5 col-sm-12">
-                    <LeafletMap imageUrl={'https://live-traffic-count.s3.us-east-2.amazonaws.com/no2_counts.png'} />
+                    <LeafletMap imageUrl={'https://live-traffic-count.s3.us-east-2.amazonaws.com/co2_counts.png'} />
 
                     {/*
           <div
