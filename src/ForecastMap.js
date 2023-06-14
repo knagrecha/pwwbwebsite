@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
-import { MapContainer, TileLayer, ImageOverlay } from 'react-leaflet';
-import { Button, Icon, Box } from '@mui/material';
+import { MapContainer, TileLayer, ImageOverlay, useMap } from 'react-leaflet';
+import { Button, Icon, Box, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -47,6 +47,12 @@ const ForecastMap = (props) => {
     [33.5, -118.75],
     [34.5, -117.5]
   ];
+
+  const getRoundedTime = () => {
+    const date = new Date();
+    date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
+    return date.toLocaleTimeString();
+  };
 
   useEffect(() => {
     const loadImages = async () => {
@@ -100,6 +106,14 @@ const ForecastMap = (props) => {
     });
   };
 
+  const LabelsLayer = () => {
+    const map = useMap();
+    map.createPane('labels');
+    map.getPane('labels').style.zIndex = 650;
+    map.getPane('labels').style.pointerEvents = 'none';
+    return null;
+  };
+
   return (
     <div>
       {loading ? (
@@ -127,6 +141,9 @@ const ForecastMap = (props) => {
             <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
               <ArrowForwardIosIcon />
             </Button>
+          </Box>
+          <Box display="flex" justifyContent="flex-end" alignItems="center">
+            <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
           </Box>
 
         </div>

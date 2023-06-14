@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Button, Icon, Box, Typography } from '@mui/material';
 
 function LeafletMap({ imageUrl }) {
+    const getRoundedTime = () => {
+        const date = new Date();
+        date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
+        return date.toLocaleTimeString();
+    };
     useEffect(() => {
         // Create a map instance and specify its center and zoom level
         const map = L.map('map').setView([33.9, -118], 11);
@@ -39,7 +45,13 @@ function LeafletMap({ imageUrl }) {
         };
     }, [imageUrl]);
 
-    return <div id="map" style={{ height: '600px' }}></div>;
+    return <div>
+        <div id="map" style={{ height: '600px' }} />
+        <Box display="flex" justifyContent="flex-end" alignItems="center">
+            <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
+        </Box>
+
+    </div>;
 }
 
 export default LeafletMap;
