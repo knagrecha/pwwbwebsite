@@ -110,7 +110,7 @@ const ForecastMap_CA = (props) => {
         <p>Loading...</p>
       ) : (
         <div>
-          <MapContainer center={[37.2, -117.2]} zoom={6} style={{ height: "500px", width: "100%" }}>
+          <MapContainer center={[37.2, -117.2]} zoom={6} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

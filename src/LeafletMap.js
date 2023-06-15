@@ -15,7 +15,7 @@ function LeafletMap({ imageUrl }) {
 
         // Create a tile layer with OpenStreetMap tiles
         const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
+            maxZoom: 13,
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
@@ -47,7 +47,7 @@ function LeafletMap({ imageUrl }) {
 
     return <div>
         <div id="map" style={{ height: '600px' }} />
-        <Box display="flex" justifyContent="flex-end" alignItems="center">
+        <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
             <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
         </Box>
 
