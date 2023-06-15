@@ -171,17 +171,7 @@ const ForecastMap = (props) => {
               pane="labels"
             />
           </MapContainer>
-          <Box display="flex" justifyContent="center" margin={2}>
-            <Button variant="outlined" style={{ marginRight: '5px', background: 'white' }} onClick={handleBackward}>
-              <ArrowBackIosIcon />
-            </Button>
-            <Button variant="outlined" style={{ margin: '0 5px', background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
-              {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-            </Button>
-            <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
-              <ArrowForwardIosIcon />
-            </Button>
-          </Box>
+
           <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", width: "30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: "15vh", zIndex: "400", border: "2px solid black" }}>
             <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
               <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
@@ -195,6 +185,17 @@ const ForecastMap = (props) => {
               alt="Scale"
               src={Scale}
             />
+            <Box display="flex" justifyContent="center" margin={2}>
+              <Button variant="outlined" style={{ marginRight: '5px', background: 'white' }} onClick={handleBackward}>
+                <ArrowBackIosIcon />
+              </Button>
+              <Button variant="outlined" style={{ margin: '0 5px', background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
+                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+              </Button>
+              <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
+                <ArrowForwardIosIcon />
+              </Button>
+            </Box>
           </Stack>
 
 
