@@ -24,7 +24,7 @@ function LeafletMap({ imageUrl }) {
     };
 
     var scaleUrl;
-    if (imageUrl === 'https://live-traffic-count.s3.us-east-2.amazonaws.com/co2_counts.png') {
+    if (imageUrl === 'https://live-traffic-count.s3.us-east-2.amazonaws.com/traffic_counts.png') {
         scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/Traffic_scale.png"
     } else if (imageUrl == 'https://live-traffic-count.s3.us-east-2.amazonaws.com/pm25_counts.png') {
         scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/PM25_scale.png"

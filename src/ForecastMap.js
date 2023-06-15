@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
 import { MapContainer, TileLayer, ImageOverlay, useMap } from 'react-leaflet';
-import { Button, Icon, Box, Typography } from '@mui/material';
+import { Button, Icon, Box, Typography, Stack } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Scale from './scale.png';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AWS from 'aws-sdk';
 import "leaflet/dist/leaflet.css";
@@ -73,7 +74,10 @@ const ForecastMap = (props) => {
 
   const getRoundedTime = () => {
     const date = new Date();
+    var hour = date.getHours();
+    var new_hour = (hour + selectedImageIndex % 24)
     date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
+    date.setHours(new_hour)
     return date.toLocaleTimeString();
   };
 
@@ -178,9 +182,21 @@ const ForecastMap = (props) => {
               <ArrowForwardIosIcon />
             </Button>
           </Box>
-          <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
-            <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
-          </Box>
+          <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", width: "30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: "15vh", zIndex: "400", border: "2px solid black" }}>
+            <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
+              <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
+            </Box>
+            <Box
+              component="img"
+              sx={{
+
+                width: "75%",
+              }}
+              alt="Scale"
+              src={Scale}
+            />
+          </Stack>
+
 
         </div>
       )}
