@@ -9,12 +9,15 @@ function LeafletMap({ imageUrl }) {
         date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
         return date.toLocaleTimeString();
     };
+
+
+
     useEffect(() => {
         // Create a map instance and specify its center and zoom level
         const map = L.map('map').setView([33.9, -118], 11);
 
         // Create a tile layer with OpenStreetMap tiles
-        const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        const osm = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png", {
             maxZoom: 13,
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -33,6 +36,18 @@ function LeafletMap({ imageUrl }) {
             errorOverlayUrl: errorOverlayUrl,
             alt: altText,
             interactive: true,
+            zIndex: 500
+        }).addTo(map);
+
+        map.createPane('labels');
+        map.getPane('labels').style.zIndex = 650;
+        map.getPane('labels').style.pointerEvents = 'none';
+
+        const osm2 = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png", {
+            maxZoom: 13,
+            attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            pane: "labels"
         }).addTo(map);
 
         // Fit the map to the LatLng bounds

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
-import { MapContainer, TileLayer, ImageOverlay } from 'react-leaflet';
+import { MapContainer, TileLayer, ImageOverlay, useMap } from 'react-leaflet';
 import { Button, Icon, Box } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -104,6 +104,15 @@ const ForecastMap_CA = (props) => {
     });
   };
 
+  const LabelsLayer = () => {
+    const map = useMap();
+    map.createPane('labels');
+    map.getPane('labels').style.zIndex = 650;
+    map.getPane('labels').style.pointerEvents = 'none';
+    return null;
+  };
+
+
   return (
     <div>
       {loading ? (
@@ -112,13 +121,20 @@ const ForecastMap_CA = (props) => {
         <div>
           <MapContainer center={[37.2, -117.2]} zoom={6} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
             <ImageOverlay
               url={images[selectedImageIndex]}
               bounds={bounds}
               opacity={0.5}
+              zIndex={500}
+            />
+            <LabelsLayer />
+            <TileLayer
+              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+              pane="labels"
             />
           </MapContainer>
           <Box display="flex" justifyContent="center" margin={2}>

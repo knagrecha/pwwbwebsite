@@ -122,13 +122,20 @@ const ForecastMap = (props) => {
         <div>
           <MapContainer center={[34, -118.2]} zoom={9} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
             <ImageOverlay
               url={images[selectedImageIndex]}
               bounds={bounds}
               opacity={0.5}
+              zIndex={500}
+            />
+            <LabelsLayer />
+            <TileLayer
+              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+              pane="labels"
             />
           </MapContainer>
           <Box display="flex" justifyContent="center" margin={2}>
