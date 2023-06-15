@@ -1,14 +1,43 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Button, Icon, Box, Typography } from '@mui/material';
+import { Button, Icon, Box, Typography, Stack } from '@mui/material';
 
 function LeafletMap({ imageUrl }) {
     const getRoundedTime = () => {
         const date = new Date();
-        date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
+        var min = 0;
+        if (date.getMinutes() < 15) {
+            min = 0;
+        } else if (date.getMinutes() < 30) {
+            min = 15;
+        } else if (date.getMinutes() < 45) {
+            min = 30;
+        } else if (date.getMinutes() < 59) {
+            min = 45;
+        } else {
+            min = 0;
+        }
+
+        date.setMinutes(min, 0, 0);  // Resets minutes, seconds and milliseconds
         return date.toLocaleTimeString();
     };
+
+    var scaleUrl;
+    if (imageUrl === 'https://live-traffic-count.s3.us-east-2.amazonaws.com/co2_counts.png') {
+        scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/Traffic_scale.png"
+    } else if (imageUrl == 'https://live-traffic-count.s3.us-east-2.amazonaws.com/pm25_counts.png') {
+        scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/PM25_scale.png"
+    } else if (imageUrl == 'https://live-traffic-count.s3.us-east-2.amazonaws.com/no2_counts.png') {
+        scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/NO2_scale.png"
+    } else if (imageUrl == 'https://live-traffic-count.s3.us-east-2.amazonaws.com/hc_counts.png') {
+        scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/HC_scale.png"
+    } else if (imageUrl == 'https://live-traffic-count.s3.us-east-2.amazonaws.com/co2_counts.png') {
+        scaleUrl = "https://live-traffic-count.s3.us-east-2.amazonaws.com/CO2_scale.png"
+    }
+
+
+
 
 
 
@@ -57,14 +86,28 @@ function LeafletMap({ imageUrl }) {
         // Cleanup the map instance on component unmount
         return () => {
             map.remove();
-        };
+        }
     }, [imageUrl]);
 
     return <div>
         <div id="map" style={{ height: '600px' }} />
-        <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
-            <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
-        </Box>
+        <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", backgroundColor: "white", left: "10vw", minWidth: "600", height: "15vh", zIndex: "400", border: "2px solid black" }}>
+            <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
+                <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
+            </Box>
+            <Box
+                component="img"
+                sx={{
+                    height: 80,
+                    width: 460,
+                    maxHeight: { xs: 80, md: 160 },
+                    maxWidth: { xs: 460, md: 920 },
+                }}
+                alt="Scale"
+                src={scaleUrl}
+            />
+        </Stack>
+
 
     </div>;
 }

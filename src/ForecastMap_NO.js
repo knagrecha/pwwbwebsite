@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
 import { MapContainer, TileLayer, ImageOverlay, useMap } from 'react-leaflet';
-import { Button, Icon, Box } from '@mui/material';
+import { Button, Icon, Box, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -11,46 +11,76 @@ import "leaflet/dist/leaflet.css";
 
 const ForecastMap_NO = (props) => {
 
-
-
-
-  const imageUrls = [
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-17-avg-21.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-18-avg-21.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-19-avg-15.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-20-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-21-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-22-avg-16.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-07-23-avg-14.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-00-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-01-avg-18.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-02-avg-21.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-03-avg-24.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-04-avg-18.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-05-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-06-avg-20.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-07-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-08-avg-20.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-09-avg-21.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-10-avg-24.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-11-avg-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-12-avg-15.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-14-avg-19.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-15-avg-14.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-16-avg-23.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/no2Predictions/pred-2022-04-08-17-avg-15.png"]
-
-
   const [images, setImages] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const intervalRef = useRef();
 
+
+  const s3 = new AWS.S3();
+  const downloadImages = () => {
+
+    console.log("DOWNLOADING!");
+
+    var fileName;
+
+    const params = {
+      Bucket: "sagemaker-us-east-2-958520404663",
+      Prefix: `sagemaker/no2Predictions/`,
+    };
+
+    const imageCount = 24;
+    var selected_items;
+    var links = [];
+    s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, data) {
+      console.log(data);
+      if (err) console.log(err, err.stack); // an error occurred
+      else {
+        var data_keys = data["Contents"];
+        data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 1);
+        var new_data_keys = [];
+        for (let i = 0; i < data_keys.length; i++) {
+          if (data_keys[i].Key.includes("png")) {
+            new_data_keys.push(data_keys[i]);
+          }
+        }
+        selected_items = new_data_keys.slice(0, imageCount);
+        for (let i = 0; i < selected_items.length; i++) {
+          links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
+        }
+        links.reverse();
+        console.log(JSON.stringify(links));
+
+
+
+        console.log("DOWNLOAD COMPLETE")
+        //setLoading(false);
+        setImageUrls(links);
+
+      }
+    });
+
+
+
+  }
+
+
   const bounds = [
     [33.5, -118.75],
     [34.5, -117.5]
   ];
+
+  const getRoundedTime = () => {
+    const date = new Date();
+    date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
+    return date.toLocaleTimeString();
+  };
+
+  useEffect(() => {
+    downloadImages();
+  }, [])
 
   useEffect(() => {
     const loadImages = async () => {
@@ -74,9 +104,11 @@ const ForecastMap_NO = (props) => {
         console.log('Failed to load images:', error);
       }
     };
+    if (imageUrls.length > 0) {
+      loadImages();
+    }
 
-    loadImages();
-  }, []);
+  }, [imageUrls]);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -147,6 +179,9 @@ const ForecastMap_NO = (props) => {
             <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
               <ArrowForwardIosIcon />
             </Button>
+          </Box>
+          <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
+            <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
           </Box>
 
         </div>
