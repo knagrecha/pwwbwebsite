@@ -15,7 +15,7 @@ class AirMobilityMap3D extends React.Component {
             width="1400"
             height="800"
             frameBorder="0"
-            style={{ border: 0 }}
+            style={{ border: 0, margin: 0 }}
             allowFullScreen
           >
             iFrames are not supported on this page.
