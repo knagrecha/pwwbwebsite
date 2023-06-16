@@ -16,7 +16,7 @@ import DigitalTwinCO from './DigitalTwinCO2.js';
 import Footer from "./Components/Footer";
 import './App.css'
 import AirQualityMap from './airqualitymap';
-import AirMobilityMap from './AirMobilityMap';
+import AirMobilityMap3D from './AirMobility3D';
 import Charts from './Charts';
 import Publications from './publications'
 import Hourly from './forecastpage';
@@ -43,7 +43,7 @@ function App() {
             <Route exact path="/DigitalTwinCO" component={DigitalTwinCO} />
             <Route exact path="/DigitalTwinTraffic" component={DigitalTwinTraffic} />
             <Route exact path="/airqualitymap" component={AirQualityMap} />
-            <Route exact path="/airmobilitymap" component={AirMobilityMap} />
+            <Route exact path="/airmobilitymap" component={AirMobilityMap3D} />
             <Route exact path="/charts" component={Charts} />
             <Route name="publications" exact path="/publications" component={Publications} />
             <Route name="home" path="/:zip" render={(props) => <Hourly key={props.location.state} {...props} />} />

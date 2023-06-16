@@ -13,7 +13,7 @@ import Search from "@arcgis/core/widgets/Search"
 import AIRMOBILITY from "./airmobility.data.js";
 
 import "./map.style.css"
-import { Accordion } from 'react-bootstrap';
+import { Accordion, Iframe } from 'react-bootstrap';
 
 
 const styles = {
@@ -92,13 +92,13 @@ function AirMobilityMap() {
       }
     })
 
+
+
   return (
 
     <div style={styles.container}>
 
-      <div class="forecastMap" style={styles.mapEl} ref={MapEl}>
-
-      </div>
+      <Iframe src="https://usctrojan.maps.arcgis.com/apps/instant/3dviewer/index.html?appid=fb333feb65bf4a9d955e067fbaf1c183" height="500" width="500" />
     </div>
   )
 }
