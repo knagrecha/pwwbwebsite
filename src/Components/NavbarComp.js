@@ -4,7 +4,7 @@ import { setAirQuality } from "../redux/actions/spinner.actions.js";
 import { withRouter } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 import Hourly from "../forecastpage.js";
-import { Alarm, Map, House, InfoCircle, BarChart, Truck } from "react-bootstrap-icons"
+import { Alarm, Map, House, InfoCircle, BarChart, Truck, Airplane } from "react-bootstrap-icons"
 
 
 
@@ -52,7 +52,7 @@ class NavbarComp extends React.Component {
       <div>
         <Navbar variant="dark" expand="lg" className="upperNav">
 
-          <Navbar.Brand href="/"><img src="/air_la.png" alt="air" width="128" height="40" /></Navbar.Brand>
+          <Navbar.Brand href="/"><img src="/air_la.png" alt="air" width="192" height="60" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="linkNav m-auto">
@@ -74,7 +74,7 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic Hydrocarbons Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO<sub>2</sub> Estimate</NavDropdown.Item>
               </NavDropdown>
-              {/*<Nav.Link className="link" href="/charts"><BarChart style={{ marginBottom: "4px", marginRight: "3px" }} /> Charts </Nav.Link>*/}
+              <Nav.Link className="link" href="/airmobilitymap"><Airplane style={{ marginBottom: "4px", marginRight: "3px" }} /> Air Mobility </Nav.Link>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><InfoCircle style={{ marginBottom: "4px", marginRight: "3px" }} />About</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="https://airquality.lacity.org/">Project</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="https://www.ai-agora.com/">Team</NavDropdown.Item>

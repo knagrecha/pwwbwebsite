@@ -8,34 +8,37 @@
 
 
 
-.background{
-    background-color: whitesmoke;
-}
-.title{
-    font-weight: bold;
-    font-size: larger;
-}
-.textSize{
-    font-size: 22px;
-    font-weight: 200;
-}
-.upperNav{
-    background-color: #005985;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
+.background {
+  background-color: whitesmoke;
 }
 
-.navbar-dark .navbar-brand  {
+.title {
+  font-weight: bold;
+  font-size: larger;
+}
 
-  padding-left:40px;
+.textSize {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.upperNav {
+  background-color: #005985;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-dark .navbar-brand {
+
+  padding-left: 40px;
 
 }
 
 .navbar-dark .navbar-nav .nav-link {
   color: white;
-  margin-right:14px;
-  margin-left:14px;
-  font-size: 20px;
+  margin-right: 14px;
+  margin-left: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -43,17 +46,18 @@
   padding-right: 232px;
 }
 
-.lowerNav{
-    background-color:#1a3157;
-    color: #6d81a1;
-    text-align: center;
-    font-weight: bold;
-    min-height: 3vw;
-    display: inline-block;
-    padding: 10px;
-    margin: auto;
-    width: 100%;
+.lowerNav {
+  background-color: #1a3157;
+  color: #6d81a1;
+  text-align: center;
+  font-weight: bold;
+  min-height: 3vw;
+  display: inline-block;
+  padding: 10px;
+  margin: auto;
+  width: 100%;
 }
+
 .lowerNav .navbar-nav {
   display: inline-block;
   float: none;
@@ -80,14 +84,15 @@
 
 
 .center2 {
-   display: flex;
-   justify-content:center;
-   width: 120%;
-   border-radius: 20px;
- }
-.textboxSearch{
-    opacity: 0.5;
-    color: white !important;
+  display: flex;
+  justify-content: center;
+  width: 120%;
+  border-radius: 20px;
+}
+
+.textboxSearch {
+  opacity: 0.5;
+  color: white !important;
 }
 
 
@@ -106,6 +111,7 @@
   border-radius: 25%;
   background-color: #a9c9eb;
 }
+
 .myDropdown {
   border: 0px;
   margin: 0px;
@@ -117,8 +123,8 @@
   color: white;
   padding: 10px;
   margin: 0px;
-  font-size: 18px;
-  
+  font-size: 15px;
+
 
 }
 
@@ -135,14 +141,14 @@
 }
 
 .cards {
-    width: 90%;
-    max-width: 2000px;
-    min-width: 300px;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 2%;
-    margin-top:2%;
+  width: 90%;
+  max-width: 2000px;
+  min-width: 300px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 2%;
+  margin-top: 2%;
 }
 
 .iframe_rss {
@@ -150,25 +156,25 @@
 }
 
 .cardBodyRSS {
-    color: black;
-    display: flex;
-    flex-direction: column;
-    padding-right: auto;
-    padding-left: auto;
-    text-align: center;
-    min-height: 350px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  padding-right: auto;
+  padding-left: auto;
+  text-align: center;
+  min-height: 350px;
 
 }
 
 
 .cardBody {
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    padding-right: auto;
-    padding-left: auto;
-    text-align: center;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  padding-right: auto;
+  padding-left: auto;
+  text-align: center;
 
 }
 
@@ -183,30 +189,31 @@
   padding: 2%;
   margin: 5%;
 }
+
 .cardButton {
-    color: white;
-    background-color: #191975;
-    font-size: 1em;
-    border: 2px solid #191975;
-    margin-top: auto;
-    min-width: 10em;
-    width: 60%;
+  color: white;
+  background-color: #191975;
+  font-size: 1em;
+  border: 2px solid #191975;
+  margin-top: auto;
+  min-width: 10em;
+  width: 60%;
 }
 
 .card {
-    border: none;
-    height: 100%;
-    margin-top: 30px;
-    background-color: white;
+  border: none;
+  height: 100%;
+  margin-top: 30px;
+  background-color: white;
 }
 
 
 .card-weather {
-    border: none;
-    padding-bottom: 5em;
-    min-height: 400px;
-    margin-top: 30px;
-    max-height: 500px;
+  border: none;
+  padding-bottom: 5em;
+  min-height: 400px;
+  margin-top: 30px;
+  max-height: 500px;
 
 }
 
