@@ -20,7 +20,7 @@ function LeafletMap({ imageUrl }) {
         }
 
         date.setMinutes(min, 0, 0);  // Resets minutes, seconds and milliseconds
-        return date.toLocaleTimeString();
+        return date.toLocaleTimeString('en-us', { weekday: 'long' });
     };
 
     var scaleUrl;

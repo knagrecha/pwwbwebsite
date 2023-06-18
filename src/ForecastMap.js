@@ -78,7 +78,7 @@ const ForecastMap = (props) => {
     var new_hour = (hour + selectedImageIndex % 24)
     date.setMinutes(0, 0, 0);  // Resets minutes, seconds and milliseconds
     date.setHours(new_hour)
-    return date.toLocaleTimeString();
+    return date.toLocaleTimeString('en-us', { weekday: 'long' });
   };
 
   useEffect(() => {
@@ -174,7 +174,7 @@ const ForecastMap = (props) => {
 
           <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", width: "30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: "15vh", zIndex: "400", border: "2px solid black" }}>
             <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
-              <Typography variant="subtitle1">Last Updated: {getRoundedTime()}</Typography>
+              <Typography variant="subtitle1">Time: {getRoundedTime()}</Typography>
             </Box>
             <Box
               component="img"
