@@ -155,7 +155,7 @@ const ForecastMap_NO = (props) => {
         <p>Loading...</p>
       ) : (
         <div>
-          <MapContainer center={[34, -118.2]} zoom={9} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
+          <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
