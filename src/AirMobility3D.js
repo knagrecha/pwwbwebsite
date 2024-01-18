@@ -11,7 +11,7 @@ class AirMobilityMap3D extends React.Component {
       <div>
         <center>
           <iframe
-            src="https://pwwb-digital-twin-5b49ae1d361e.herokuapp.com"
+            src="https://digital-twin-pwwb-9e336ecaddce.herokuapp.com"
             width="1400"
             height="800"
             frameBorder="0"
