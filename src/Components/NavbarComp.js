@@ -79,7 +79,7 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/airmobilitymap3D">3D</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><InfoCircle style={{ marginBottom: "4px", marginRight: "3px" }} />About</span> className="link">
-                <NavDropdown.Item className="dropdownitem" href="https://airquality.lacity.org/">Project</NavDropdown.Item>
+                <NavDropdown.Item className="dropdownitem" href="https://airquality.lacity.gov/about-usproject-news/">Project</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="https://www.ai-agora.com/">Team</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/publications">Publications</NavDropdown.Item>
               </NavDropdown>
