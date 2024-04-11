@@ -67,14 +67,14 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/MapForecastNO">NO<sub>2</sub> Los Angeles</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/MapForecastCA">PM<sub>2.5</sub> California</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Truck style={{ marginBottom: "4px", marginRight: "3px" }} />Digital Twins</span> className="link">
+              <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Truck style={{ marginBottom: "4px", marginRight: "3px" }} />Traffic Pollutants</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinTraffic">Traffic Counts Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinPM">Traffic PM<sub>2.5</sub> Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinNO">Traffic NO<sub>2</sub> Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic Hydrocarbons Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO<sub>2</sub> Estimate</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown menuVariant="dark" className="myDropDown" title=<span><Airplane style={{ marginBottom: "4px", marginRight: "3px" }} /> Air Mobility</span> className="link">
+              <NavDropdown menuVariant="dark" className="myDropDown" title=<span><Airplane style={{ marginBottom: "4px", marginRight: "3px" }} /> 3D Digital Twin</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="/airmobilitymap">2D</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/airmobilitymap3D">3D</NavDropdown.Item>
               </NavDropdown>
