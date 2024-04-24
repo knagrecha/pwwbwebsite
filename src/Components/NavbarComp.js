@@ -74,10 +74,7 @@ class NavbarComp extends React.Component {
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinHC">Traffic Hydrocarbons Estimate</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinCO">Traffic CO<sub>2</sub> Estimate</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown menuVariant="dark" className="myDropDown" title=<span><Airplane style={{ marginBottom: "4px", marginRight: "3px" }} /> 3D Digital Twin</span> className="link">
-                <NavDropdown.Item className="dropdownitem" href="/airmobilitymap">2D</NavDropdown.Item>
-                <NavDropdown.Item className="dropdownitem" href="/airmobilitymap3D">3D</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link className="link" href="/"><House style={{ marginBottom: "4px", marginRight: "3px" }} /><Airplane style={{ marginBottom: "4px", marginRight: "3px" }} /> 3D Digital Twin </Nav.Link>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><InfoCircle style={{ marginBottom: "4px", marginRight: "3px" }} />About</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="https://airquality.lacity.gov/about-usproject-news/">Project</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="https://www.calstatela.edu/research/data-science">Team</NavDropdown.Item>
