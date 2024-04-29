@@ -295,7 +295,7 @@ class Hourly extends React.Component {
     this.setState({
       postalCode: data
     }, () => {
-      let parsed = parseInt(this.state.postalCode);
+      let parsed = parseInt(this.state.postalCode) + 11;
 
       if (isNaN(parsed)){
 
@@ -315,7 +315,7 @@ class Hourly extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    let parsed = parseInt(this.state.postalCode);
+    let parsed = parseInt(this.state.postalCode) + 11;
 
     if (isNaN(parsed)){
       this.retrieveDataFromCity(this.state.postalCode);
