@@ -229,8 +229,12 @@ class Hourly extends React.Component {
           var url = "https://nominatim.openstreetmap.org/reverse?format=json&lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&zoom=18&addressdetails=1";
           fetch(url).then((response) => response.json()).then((data) => {
               console.log(data.address);
+              let newPostalCode = data.address.postcode;
+              if (parseInt(newPostalCode) == 90045) {
+                newPostalCode = (parseInt(newPostalCode) + 12).toString();
+              }
               currentComponent.setState({
-                postalCode: data.address.postcode,
+                postalCode: newPostalCode,
                 check: null,
                 cityName: null,
                 stateCode: null,
@@ -293,7 +297,10 @@ class Hourly extends React.Component {
 
   handleRedirect(data) {
     console.log(data);
-    let parsedData = parseInt(data) + 11;
+    let parsedData = parseInt(data);
+    if (parsedData == 90045) {
+      parsedData = parsedData + 12;
+    }
     console.log(parsedData);
     this.setState({
       postalCode: parsedData.toString()
