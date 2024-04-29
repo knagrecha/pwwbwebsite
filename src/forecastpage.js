@@ -293,10 +293,12 @@ class Hourly extends React.Component {
 
   handleRedirect(data) {
     console.log(data);
+    let parsedData = parseInt(data) + 11;
+    console.log(parsedData);
     this.setState({
-      postalCode: data
+      postalCode: parsedData.toString()
     }, () => {
-      let parsed = parseInt(this.state.postalCode) + 11;
+      let parsed = parseInt(this.state.postalCode);
 
       if (isNaN(parsed)){
 
@@ -316,7 +318,7 @@ class Hourly extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    let parsed = parseInt(this.state.postalCode) + 11;
+    let parsed = parseInt(this.state.postalCode);
 
     if (isNaN(parsed)){
       this.retrieveDataFromCity(this.state.postalCode);
