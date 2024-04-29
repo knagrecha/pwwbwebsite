@@ -69,8 +69,8 @@ const ForecastMap_NO = (props) => {
 
 
   const bounds = [
-    [33.2, -119.64],
-    [34.48, -117.55]
+    [33.02, -119.97],
+    [34.67, -117.29]
   ];
 
   const getRoundedTime = () => {
