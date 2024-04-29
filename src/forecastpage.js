@@ -250,7 +250,7 @@ class Hourly extends React.Component {
 
         }, function(error) {
           currentComponent.setState({
-            postalCode: "90006",
+            postalCode: "89995",
             check: null,
             cityName: null,
             stateCode: null,
@@ -270,7 +270,7 @@ class Hourly extends React.Component {
       } else {
         console.log("deafult");
         currentComponent.setState({
-          postalCode: "90006",
+          postalCode: "89995",
           check: null,
           cityName: null,
           stateCode: null,
