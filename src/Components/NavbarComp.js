@@ -65,7 +65,6 @@ class NavbarComp extends React.Component {
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Alarm style={{ marginBottom: "4px", marginRight: "3px" }} />  Daily Forecast</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="/MapForecast">PM<sub>2.5</sub> Los Angeles</NavDropdown.Item>
                 <NavDropdown.Item className="dropdownitem" href="/MapForecastNO">NO<sub>2</sub> Los Angeles</NavDropdown.Item>
-                // <NavDropdown.Item className="dropdownitem" href="/MapForecastCA">PM<sub>2.5</sub> California</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown menuVariant="dark" className="myDropdown" title=<span><Truck style={{ marginBottom: "4px", marginRight: "3px" }} />Traffic Pollutants</span> className="link">
                 <NavDropdown.Item className="dropdownitem" href="/DigitalTwinTraffic">Traffic Counts Estimate</NavDropdown.Item>
