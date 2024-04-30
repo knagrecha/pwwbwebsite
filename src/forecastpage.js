@@ -41,7 +41,7 @@ class Hourly extends React.Component {
     };
   }
 
-  retrieveDataFromPostal() {
+retrieveDataFromPostal() {
     const { setAirQuality } = this.props;
     fetch(
       this.PostcodeForecastUrl +
@@ -113,23 +113,17 @@ class Hourly extends React.Component {
 
 
   }
-
-  retrieveDataFromCity(){
-    const { setAirQuality } = this.props;
-    fetch(
-      this.CityForecastUrl +
-        this.state.postalCode +
-        "&country=US"+
-        "&days=5&units=I&key=" +
-        this.key
-    )
-      .then((response) => response.json())
-      .then((data) => {
+  retrieveDataFromPostal() {
+    const { postalCode } = this.state;
+    const weatherbitKey = "ffa0c2526f944cfc83a919bfe72bc39a"; // Replace with your Weatherbit API key
+    const googleApiKey = "AIzaSyDAmGgSuEQW6PCjXxFNH9DfdZm6KZHdvdI"; // Replace with your Google API key
+  
+    // Fetch weather data using the Weatherbit API
+    fetch(`https://api.weatherbit.io/v2.0/forecast/daily?postal_code=${postalCode}&days=5&units=I&key=${weatherbitKey}`)
+      .then(response => response.json())
+      .then(data => {
+        // Extract weather information and update state
         this.setState({
-          postalCode: this.state.postalCode,
-          //cityName: data.city_name,
-          //stateCode: data.state_code,
-
           weatherTemp: [
             data.data[0].temp,
             data.data[1].temp,
@@ -166,27 +160,111 @@ class Hourly extends React.Component {
             data.data[4].datetime,
           ],
         });
+      })
+      .catch(error => {
+        console.error("Error fetching weather data:", error);
       });
-
-    fetch(this.CityAqiUrl + this.state.postalCode + "&country=US" + "&key=" + this.key)
-      .then((response) => response.json())
-      .then((data) => {
-        this.didAirQualityLoad = true;
+  
+    // Fetch city name and state using Google Geocoding API
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${googleApiKey}`)
+      .then(response => response.json())
+      .then(data => {
+        // Extract city name and state from the response
+        const addressComponents = data.results[0].address_components;
+        const city = addressComponents.find(component => component.types.includes('locality'));
+        const state = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
+  
+        // Update state with city name and state
         this.setState({
-          cityName: data.data[0].city_name,
-          stateCode: data.data[0].state_code,
-          aqiCode: data.data[0].aqi,
+          cityName: city ? city.long_name : null,
+          stateCode: state ? state.short_name : null,
+          loading: false,
         });
-      }).then(() => {
-
-        console.log("nearly done");
-        this.loading = false;
-         this.setState({ state: this.state });
+      })
+      .catch(error => {
+        console.error("Error fetching location information:", error);
+        this.setState({ loading: false });
       });
-
-
+  
+    this.setState({ loading: true });
   }
-
+  
+  retrieveDataFromCity() {
+    const { postalCode } = this.state;
+    const weatherbitKey = "ffa0c2526f944cfc83a919bfe72bc39a"; // Replace with your Weatherbit API key
+    const googleApiKey = "AIzaSyDAmGgSuEQW6PCjXxFNH9DfdZm6KZHdvdI"; // Replace with your Google API key
+  
+    // Fetch weather data using the Weatherbit API
+    fetch(`https://api.weatherbit.io/v2.0/forecast/daily?postal_code=${postalCode}&country=US&days=5&units=I&key=${weatherbitKey}`)
+      .then(response => response.json())
+      .then(data => {
+        // Extract weather information and update state
+        this.setState({
+          weatherTemp: [
+            data.data[0].temp,
+            data.data[1].temp,
+            data.data[2].temp,
+            data.data[3].temp,
+            data.data[4].temp,
+          ],
+          weatherMinTemp: [
+            data.data[0].min_temp,
+            data.data[1].min_temp,
+            data.data[2].min_temp,
+            data.data[3].min_temp,
+            data.data[4].min_temp,
+          ],
+          weatherMaxTemp: [
+            data.data[0].max_temp,
+            data.data[1].max_temp,
+            data.data[2].max_temp,
+            data.data[3].max_temp,
+            data.data[4].max_temp,
+          ],
+          weatherIcon: [
+            data.data[0].weather.icon,
+            data.data[1].weather.icon,
+            data.data[2].weather.icon,
+            data.data[3].weather.icon,
+            data.data[4].weather.icon,
+          ],
+          date: [
+            data.data[0].datetime,
+            data.data[1].datetime,
+            data.data[2].datetime,
+            data.data[3].datetime,
+            data.data[4].datetime,
+          ],
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching weather data:", error);
+      });
+  
+    // Fetch city name and state using Google Geocoding API
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&country=US&key=${googleApiKey}`)
+      .then(response => response.json())
+      .then(data => {
+        // Extract city name and state from the response
+        const addressComponents = data.results[0].address_components;
+        const city = addressComponents.find(component => component.types.includes('locality'));
+        const state = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
+  
+        // Update state with city name and state
+        this.setState({
+          cityName: city ? city.long_name : null,
+          stateCode: state ? state.short_name : null,
+          loading: false,
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching location information:", error);
+        this.setState({ loading: false });
+      });
+  
+    this.setState({ loading: true });
+  }
+  
   componentDidMount() {
     if (this.props.location.state != null) {
 
