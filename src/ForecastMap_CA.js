@@ -68,8 +68,8 @@ const ForecastMap_CA = (props) => {
   }
 
   const bounds = [
-    [43.25, -129.7],
-    [30.9, -109.8]
+    [45.15, -132.4],
+    [29.0, -107.3]
   ];
 
   const getRoundedTime = () => {
