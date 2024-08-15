@@ -10,7 +10,7 @@ class AirMobilityMap3D extends React.Component {
     return (
       <div>
         <center>
-          <iframe
+          /*<iframe
             src="https://digital-twin-pwwb-9e336ecaddce.herokuapp.com"
             width="1400"
             height="800"
@@ -19,7 +19,8 @@ class AirMobilityMap3D extends React.Component {
             allowFullScreen
           >
             iFrames are not supported on this page.
-          </iframe>
+          </iframe>*/
+          <h3> 3D Digital Twin Temporarily Down </h3>
         </center>
       </div>
     );
