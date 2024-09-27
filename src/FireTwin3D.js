@@ -28,4 +28,4 @@ class FireTwinMap3D extends React.Component {
 }
 
 
-export default AirMobilityMap3D;
+export default FireTwinMap3D;
