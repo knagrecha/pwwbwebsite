@@ -46,7 +46,7 @@ function App() {
             <Route exact path="/DigitalTwinTraffic" component={DigitalTwinTraffic} />
             <Route exact path="/airqualitymap" component={AirQualityMap} />
             <Route exact path="/airmobilitymap" component={AirMobilityMap} />
-            <Route exact path="/airmobilitymap3D" component={AirMobilityMap3D} />
+            <Route exact path="/AQDigitalTwin" component={AirMobilityMap3D} />
             <Route exact path="/firetwinmap3D" component={FireTwin3D} />
             <Route exact path="/charts" component={Charts} />
             <Route name="publications" exact path="/publications" component={Publications} />
