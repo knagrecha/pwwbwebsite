@@ -152,6 +152,7 @@ const ForecastMap = (props) => {
       {loading ? (
         <p>Loading...</p>
       ) : (
+        <p>PM2.5 Map currently down for maintenance</p>
         // <div>
         //   <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
         //     <TileLayer
