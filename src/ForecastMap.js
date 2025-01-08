@@ -152,25 +152,25 @@ const ForecastMap = (props) => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
-            <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            />
-            <ImageOverlay
-              url={images[selectedImageIndex]}
-              bounds={bounds}
-              opacity={0.5}
-              zIndex={500}
-            />
-            <LabelsLayer />
-            <TileLayer
-              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              pane="labels"
-            />
-          </MapContainer>
+        // <div>
+        //   <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
+        //     <TileLayer
+        //       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+        //       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        //     />
+        //     <ImageOverlay
+        //       url={images[selectedImageIndex]}
+        //       bounds={bounds}
+        //       opacity={0.5}
+        //       zIndex={500}
+        //     />
+        //     <LabelsLayer />
+        //     <TileLayer
+        //       url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+        //       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        //       pane="labels"
+        //     />
+        //   </MapContainer>
 
           <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", width: "30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: "15vh", zIndex: "400", border: "2px solid black" }}>
             <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
