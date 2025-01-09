@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
-import { MapContainer, TileLayer, ImageOverlay, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, ImageOverlay, useMap } from 
+'react-leaflet';
 import { Button, Icon, Box, Typography, Stack } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -34,12 +35,14 @@ const ForecastMap = (props) => {
     const imageCount = 24;
     var selected_items;
     var links = [];
-    s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, data) {
+    s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, 
+data) {
       console.log(data);
       if (err) console.log(err, err.stack); // an error occurred
       else {
         var data_keys = data["Contents"];
-        data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 1);
+        data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 
+1);
         var new_data_keys = [];
         for (let i = 0; i < data_keys.length; i++) {
           if (data_keys[i].Key.includes("png")) {
@@ -48,7 +51,8 @@ const ForecastMap = (props) => {
         }
         selected_items = new_data_keys.slice(0, imageCount);
         for (let i = 0; i < selected_items.length; i++) {
-          links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
+          
+links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
         }
         links.reverse();
         console.log(JSON.stringify(links));
@@ -68,8 +72,8 @@ const ForecastMap = (props) => {
 
 
   const bounds = [
-    [32.78, -120.35],
-    [34.92, -117.00]
+    [33.30, -119.14],
+    [34.74, -117.20]
   ];
 
   const getRoundedTime = () => {
@@ -152,55 +156,69 @@ const ForecastMap = (props) => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <p>PM2.5 Map currently down for maintenance</p>
-        // <div>
-        //   <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} maxZoom={13} style={{ height: "500px", width: "100%" }}>
-        //     <TileLayer
-        //       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
-        //       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        //     />
-        //     <ImageOverlay
-        //       url={images[selectedImageIndex]}
-        //       bounds={bounds}
-        //       opacity={0.5}
-        //       zIndex={500}
-        //     />
-        //     <LabelsLayer />
-        //     <TileLayer
-        //       url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
-        //       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        //       pane="labels"
-        //     />
-        //   </MapContainer>
+        <div>
+          <MapContainer center={[34, -118.2]} zoom={11} minZoom={5} 
+maxZoom={13} style={{ height: "500px", width: "100%" }}>
+            <TileLayer
+              
+url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a 
+href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 
+contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            />
+            <ImageOverlay
+              url={images[selectedImageIndex]}
+              bounds={bounds}
+              opacity={0.5}
+              zIndex={500}
+            />
+            <LabelsLayer />
+            <TileLayer
+              
+url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png"
+              attribution='&copy; <a 
+href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 
+contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+              pane="labels"
+            />
+          </MapContainer>
 
-        //   <Stack display="flex" justifyContent="flex" alignItems="center" sx={{ textAlign: "center", position: "absolute", top: "20vh", width: "30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: "15vh", zIndex: "400", border: "2px solid black" }}>
-        //     <Box display="flex" justifyContent="flex-end" alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
-        //       <Typography variant="subtitle1">Time: {getRoundedTime()}</Typography>
-        //     </Box>
-        //     <Box
-        //       component="img"
-        //       sx={{
+          <Stack display="flex" justifyContent="flex" alignItems="center" 
+sx={{ textAlign: "center", position: "absolute", top: "20vh", width: 
+"30%", backgroundColor: "white", left: "10vw", minWidth: "300", height: 
+"15vh", zIndex: "400", border: "2px solid black" }}>
+            <Box display="flex" justifyContent="flex-end" 
+alignItems="center" sx={{ backgroundColor: "white", fontSize: "large" }}>
+              <Typography variant="subtitle1">Time: 
+{getRoundedTime()}</Typography>
+            </Box>
+            <Box
+              component="img"
+              sx={{
 
-        //         width: "75%",
-        //       }}
-        //       alt="Scale"
-        //       src={Scale}
-        //     />
-        //     <Box display="flex" justifyContent="center" margin={2}>
-        //       <Button variant="outlined" style={{ marginRight: '5px', background: 'white' }} onClick={handleBackward}>
-        //         <ArrowBackIosIcon />
-        //       </Button>
-        //       <Button variant="outlined" style={{ margin: '0 5px', background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
-        //         {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        //       </Button>
-        //       <Button variant="outlined" style={{ marginLeft: '5px', background: 'white' }} onClick={handleForward}>
-        //         <ArrowForwardIosIcon />
-        //       </Button>
-        //     </Box>
-        //   </Stack>
+                width: "75%",
+              }}
+              alt="Scale"
+              src={Scale}
+            />
+            <Box display="flex" justifyContent="center" margin={2}>
+              <Button variant="outlined" style={{ marginRight: '5px', 
+background: 'white' }} onClick={handleBackward}>
+                <ArrowBackIosIcon />
+              </Button>
+              <Button variant="outlined" style={{ margin: '0 5px', 
+background: 'white' }} onClick={isPlaying ? handlePause : handlePlay}>
+                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+              </Button>
+              <Button variant="outlined" style={{ marginLeft: '5px', 
+background: 'white' }} onClick={handleForward}>
+                <ArrowForwardIosIcon />
+              </Button>
+            </Box>
+          </Stack>
 
 
-        // </div>
+        </div>
       )}
     </div>
   );
@@ -340,12 +358,14 @@ function ForecastMap(props) {
      const imageCount = 24;
      var selected_items;
      var links = [];
-     s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, data) {
+     s3.makeUnauthenticatedRequest('listObjectsV2', params, function (err, 
+data) {
        console.log(data);
        if (err) console.log(err, err.stack); // an error occurred
        else {
          var data_keys = data["Contents"];
-         data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 1);
+         data_keys.sort((a, b) => (a.LastModified > b.LastModified) ? -1 : 
+1);
          var new_data_keys = [];
          for (let i = 0; i < data_keys.length; i++) {
            if (data_keys[i].Key.includes("png")) {
@@ -354,7 +374,8 @@ function ForecastMap(props) {
          }
          selected_items = new_data_keys.slice(0, imageCount);
          for (let i = 0; i < selected_items.length; i++) {
-           links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
+           
+links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/${selected_items[i].Key}`]);
          }
          links.reverse();
          console.log(JSON.stringify(links));
@@ -395,30 +416,54 @@ function ForecastMap(props) {
 
 /*
   const urls = [
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-18.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-19.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-20.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-21.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-22.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-23.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-00.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-01.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-02.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-03.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-04.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-05.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-06.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-07.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-08.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-09.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-10.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-11.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-12.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-13.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14-avg-15.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-15-avg-15.png",
-    "https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-16-avg-15.png"]
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-18.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-19.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-20.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-21.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-22.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-11-23.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-00.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-01.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-02.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-03.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-04.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-05.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-06.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-07.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-08.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-09.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-10.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-11.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-12.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-13.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-14-avg-15.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-15-avg-15.png",
+    
+"https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com/sagemaker/predictions/pred-2022-02-12-16-avg-15.png"]
   return (
  
     MyMap({ imageUrls: urls })
