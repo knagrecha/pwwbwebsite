@@ -72,8 +72,8 @@ links.push([`https://sagemaker-us-east-2-958520404663.s3.us-east-2.amazonaws.com
 
 
   const bounds = [
-    [33.30, -119.14],
-    [34.74, -117.20]
+    [33.30, -119.22],
+    [34.74, -117.14]
   ];
 
   const getRoundedTime = () => {
