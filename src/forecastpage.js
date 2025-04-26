@@ -22,11 +22,12 @@ class Hourly extends React.Component {
     // this.widget = "https://widget.airnow.gov/aq-flag-widget/?a=today&z=90012&n=losAngeles"
     // this.key = process.env.REACT_APP_WEATHERBIT_KEY;
     //this.key = "b321ba8bb6914d52a15477807e833dfd"
-    this.key = "f8761170b5374ac68edcc3c1eb6ff157";
-    this.key = "8d4951a254bc4e4a9af652397bc0e5bf";
+    // this.key = "f8761170b5374ac68edcc3c1eb6ff157";
+    // this.key = "8d4951a254bc4e4a9af652397bc0e5bf";
     //this.key = "ffa0c2526f944cfc83a919bfe72bc39a";
     //this.key = "ae1eace77edc4aca9228e9b7b165ddb4";
     // this.key = "db5d97de2f5e423bb3dd7e130101a7dd";
+    this.key = "330e0abad624426c93b9b8d601290c5c";
     this.loading = true;
 
     this.state = {
